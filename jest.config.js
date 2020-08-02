@@ -8,7 +8,7 @@ module.exports = {
     '\\.css$': '<rootDir>/node_modules/jest-css-modules',
   },
   testMatch: [
-    '**/__tests__/**/*.+(ts|tsx|js)',
+    '**/__tests__/unit/**/*.+(ts|tsx|js)',
     '**/?(*.)+(spec|test).+(ts|tsx|js)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
