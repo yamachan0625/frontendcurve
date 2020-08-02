@@ -1,6 +1,6 @@
 module.exports = {
   // 整形を効かせたいファイルなので除外を解除
-  ignorePatterns: ['!.eslintrc.js', '!.babelrc.js'],
+  ignorePatterns: ['!.eslintrc.js', '!.babelrc.js', '!.storybook/**/*.(js|ts)'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
