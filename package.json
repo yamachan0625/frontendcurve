@@ -61,7 +61,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "git add",
       "prettier --write",
       "npm run lint",
       "npm test"
