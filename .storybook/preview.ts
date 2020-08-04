@@ -1,4 +1,4 @@
-import { addParameters } from '@storybook/react';
+import { addParameters, configure } from '@storybook/react';
 // addon-console を追加した場合は読み込む
 import '@storybook/addon-console';
 // addon-viewport を追加した場合は読み込む
@@ -11,3 +11,6 @@ addParameters({
     viewports: INITIAL_VIEWPORTS,
   },
 });
+
+const req = [require.context('../src/stories', true, /.stor(ies|y).[tj]sx$/)];
+configure(req, module);
