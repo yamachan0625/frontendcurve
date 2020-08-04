@@ -50,7 +50,7 @@
   },
   "scripts": {
     "dev": "next",
-    "build": "next buil; build-storybook -c .storybook -o public/_storybook",
+    "build": "next build; build-storybook -c .storybook -o public/_storybook",
     "start": "next start",
     "test": "jest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore .",
