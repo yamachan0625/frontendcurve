@@ -5,12 +5,11 @@
 */ const path = require('path');
 
 module.exports = {
-  webpack: (config, { webpack }) => {
+  webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '~': path.resolve(__dirname, './src'),
     };
-    config.plugins.push(new webpack.IgnorePlugin(/\.stor(ies|y).[tj]sx$/));
     return config;
   },
 };
