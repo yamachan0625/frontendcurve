@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "graphql-playground-middleware-express": "^1.7.18",
     "http-proxy-middleware": "^1.0.5",
     "next": "^9.5.1",
     "react": "^16.13.1",
@@ -56,9 +55,10 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "dev": "nodemon server/server.ts",
-    "build": "next build; tsc --project server/tsconfig.server.json; build-storybook -c .storybook -o public/_storybook; ",
-    "start": "NODE_ENV=production node dist/server/server.js",
+    "dev":"next dev",
+    "dev:server": "nodemon server/server.ts",
+    "build": "next build; build-storybook -c .storybook -o public/_storybook",
+    "start": "next start",
     "test:unit": "jest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore .",
     "storybook": "start-storybook -p 6006",
