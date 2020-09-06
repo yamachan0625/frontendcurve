@@ -1,21 +1,60 @@
 import React from 'react';
-import App, { AppProps } from 'next/app';
+import { AppProps /**AppContext  */ } from 'next/app';
+// import { setContext } from '@apollo/client/link/context';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { AuthProvider } from '../contexts/auth';
 import '~/styles/reset.css';
+
+const link = createHttpLink({
+  uri: '/graphql',
+  credentials: 'same-origin',
+});
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache(),
+});
+
+// デフォルトのheadersでリクエスト設定
+// const createApolloClient = () => {
+//   const httpLink = createHttpLink({
+//     uri: '/graphql',
+//     credentials: 'same-origin',
+//   });
+//   const authLink = setContext((_, { headers }) => {
+//     return {
+//       headers: {
+//         ...headers,
+//         'X-XSRF-TOKEN': 'token',
+//       },
+//     };
+//   });
+//   return new ApolloClient({
+//     // ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
+//     link: authLink.concat(httpLink),
+//     cache: new InMemoryCache(),
+//   });
+// };
 
 /**
  * pageコンポーネント全てをラップする。
  * 共通で行いたい処理を書く
  */
-class MyApp extends App {
-  render() {
-    const { Component, pageProps }: AppProps = this.props;
-
-    return (
-      <React.Fragment>
-        <Component {...pageProps} />
-      </React.Fragment>
-    );
-  }
-}
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <React.Fragment>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </ApolloProvider>
+    </React.Fragment>
+  );
+};
 
 export default MyApp;
