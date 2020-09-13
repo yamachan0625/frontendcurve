@@ -23,7 +23,9 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
   const client = useApolloClient();
+  // グローバルで管理したいuser情報を持つstate
   const [user, setUser] = useState(null);
+  // ログイン処理中のローデイング
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -36,9 +38,12 @@ export const AuthProvider = ({ children }) => {
           query: CURRENET_USER,
         });
         setUser(data);
+      } else {
+        router.push('/');
       }
       setLoading(false);
     };
+
     loadUser();
   }, []);
 
