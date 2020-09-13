@@ -4,7 +4,7 @@ import { setCookie } from 'nookies';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '~/queries/queries';
-import useAuth from '../contexts/auth';
+import useAuth from '~/contexts/auth';
 
 import { NextPage } from 'next';
 
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
     const { data } = await login({ variables: { email, password } });
     userLogin(data);
     setCookie(null, 'token', data.login.token, {
-      maxAge: 30 * 24 * 60 * 60,
+      maxAge: 60,
       httponly: true,
       path: '/',
     });

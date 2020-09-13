@@ -60,7 +60,6 @@
   },
   "scripts": {
     "dev": "next dev",
-    "dev:server": "nodemon server/server.ts",
     "build": "next build; build-storybook -c .storybook -o public/_storybook",
     "start": "next start",
     "test:unit": "jest",
