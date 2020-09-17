@@ -5,6 +5,17 @@ export const LOGIN = gql`
     login(email: $email, password: $password) {
       userId
       token
+      refreshToken
+    }
+  }
+`;
+
+export const SIGNUP = gql`
+  mutation($email: String!, $password: String!) {
+    signup(email: $email, password: $password) {
+      userId
+      token
+      refreshToken
     }
   }
 `;

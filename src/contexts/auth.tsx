@@ -16,7 +16,7 @@ export interface Auth {
 const AuthContext = createContext({
   isAuthenticated: false,
   user: null,
-  userLogin: (value: Auth) => {},
+  setUserData: (value: Auth) => {},
   logout: () => {},
   loading: true,
 });
@@ -31,15 +31,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const loadUser = async () => {
-      const { token } = parseCookies();
-
-      if (token) {
+      const { userId } = parseCookies();
+      if (userId) {
         const { data } = await client.query({
           query: CURRENET_USER,
         });
         setUser(data);
-      } else {
-        router.push('/');
       }
       setLoading(false);
     };
@@ -47,19 +44,19 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
-  const userLogin = (data: Auth): void => {
-    setUser(data.login);
+  const setUserData = (data: Auth): void => {
+    setUser(data);
   };
 
   const logout = () => {
-    destroyCookie(null, 'token');
+    destroyCookie(null, 'userId');
     setUser(null);
     router.push('/');
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, userLogin, logout, loading }}
+      value={{ isAuthenticated: !!user, user, setUserData, logout, loading }}
     >
       {children}
     </AuthContext.Provider>
@@ -71,20 +68,6 @@ export default function useAuth() {
 
   return context;
 }
-
-// 一応HOCバージョン
-// export const ProtectRoute = (Component) => {
-//   return () => {
-//     const { isAuthenticated, loading } = useAuth();
-//     const router = useRouter();
-
-//     useEffect(() => {
-//       if (!isAuthenticated && !loading) router.push('/');
-//     }, [loading, isAuthenticated]);
-
-//     return <Component {...arguments} />;
-//   };
-// };
 
 export const useProtectRoute = () => {
   const { isAuthenticated, loading } = useAuth();

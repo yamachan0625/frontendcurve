@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppProps /**AppContext  */ } from 'next/app';
-// import { setContext } from '@apollo/client/link/context';
+import { setContext } from '@apollo/client/link/context';
 import {
   ApolloClient,
   InMemoryCache,
@@ -26,11 +26,13 @@ const client = new ApolloClient({
 //     uri: '/graphql',
 //     credentials: 'same-origin',
 //   });
+
 //   const authLink = setContext((_, { headers }) => {
+//     const userId = localStorage.getItem('userId');
 //     return {
 //       headers: {
 //         ...headers,
-//         'X-XSRF-TOKEN': 'token',
+//         'USER-ID': userId,
 //       },
 //     };
 //   });
@@ -46,6 +48,7 @@ const client = new ApolloClient({
  * 共通で行いたい処理を書く
  */
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  // const client = createApolloClient();
   return (
     <React.Fragment>
       <ApolloProvider client={client}>
