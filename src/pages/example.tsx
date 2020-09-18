@@ -6,7 +6,6 @@ import { NextPage } from 'next';
 
 const Home: NextPage = () => {
   const { loading } = useAuth();
-
   useProtectRoute();
   return (
     <>
@@ -25,4 +24,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-// export default ProtectRoute(Home);
