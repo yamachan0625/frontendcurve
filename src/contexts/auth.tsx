@@ -4,7 +4,6 @@ import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 
 import { CURRENET_USER } from '~/queries/queries';
-// import { route } from 'next/dist/next-server/server/router';
 
 export interface Auth {
   login: {
@@ -17,46 +16,44 @@ const AuthContext = createContext({
   isAuthenticated: false,
   user: null,
   setUserData: (value: Auth) => {},
+  setLoadingState: (value: boolean) => {},
   logout: () => {},
   loading: true,
 });
 
 export const AuthProvider = ({ children }) => {
-  const client = useApolloClient();
+  const router = useRouter();
+
   // グローバルで管理したいuser情報を持つstate
   const [user, setUser] = useState(null);
   // ログイン処理中のローデイング
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    const loadUser = async () => {
-      const { userId } = parseCookies();
-      if (userId) {
-        const { data } = await client.query({
-          query: CURRENET_USER,
-        });
-        setUser(data);
-      }
-      setLoading(false);
-    };
-
-    loadUser();
-  }, []);
 
   const setUserData = (data: Auth): void => {
     setUser(data);
   };
 
+  const setLoadingState = (value: boolean) => {
+    setLoading(value);
+  };
+
   const logout = () => {
     destroyCookie(null, 'userId');
     setUser(null);
+    // TODO:ログアウト後に遷移させたいページを指定
     router.push('/');
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, setUserData, logout, loading }}
+      value={{
+        isAuthenticated: !!user,
+        user,
+        setUserData,
+        setLoadingState,
+        logout,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -65,17 +62,44 @@ export const AuthProvider = ({ children }) => {
 
 export default function useAuth() {
   const context = useContext(AuthContext);
-
   return context;
 }
 
 export const useProtectRoute = () => {
-  const { isAuthenticated, loading } = useAuth();
+  const { setUserData, setLoadingState } = useAuth();
+  const client = useApolloClient();
   const router = useRouter();
+  const currentPath = router.pathname;
+  const { userId } = parseCookies();
 
+  const loadUser = async () => {
+    const { data } = await client.query({
+      query: CURRENET_USER,
+    });
+    setUserData(data);
+  };
+
+  // SSR後にuser情報をstateに格納したい
   useEffect(() => {
-    if (!isAuthenticated && !loading) router.push('/');
-  }, [loading, isAuthenticated]);
+    if (userId) {
+      loadUser();
+      return;
+    }
+    setUserData(null);
+  }, []);
+
+  // パスが変わるたびに呼び出す
+  useEffect(() => {
+    setLoadingState(true);
+    if (userId) {
+      setLoadingState(false);
+    } else {
+      if (currentPath !== '/') {
+        // ログインページにリダイレクトさせたい
+        router.push('/');
+      }
+    }
+  }, [currentPath]);
 
   return;
 };
