@@ -20,6 +20,22 @@ export const SIGNUP = gql`
   }
 `;
 
+export const CHANGE_PASSWORD = gql`
+  mutation(
+    $currentPassword: String!
+    $newPassword: String!
+    $confirmNewPassword: String!
+  ) {
+    changePassword(
+      currentPassword: $currentPassword
+      newPassword: $newPassword
+      confirmNewPassword: $confirmNewPassword
+    ) {
+      password
+    }
+  }
+`;
+
 export const CURRENET_USER = gql`
   {
     user {

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { setCookie } from 'nookies';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
-import { LOGIN, SIGNUP } from '~/queries/queries';
+import { LOGIN, SIGNUP, CHANGE_PASSWORD } from '~/queries/queries';
 import useAuth from '~/contexts/auth';
 
 import { NextPage } from 'next';
@@ -16,7 +16,15 @@ const Home: NextPage = () => {
     register: signupRegister,
     handleSubmit: signupHandleSubmit,
   } = useForm();
+
   const [signup] = useMutation(SIGNUP);
+
+  const {
+    register: changePasswordRegister,
+    handleSubmit: changePasswordHandleSubmit,
+  } = useForm();
+
+  const [chengePassword] = useMutation(CHANGE_PASSWORD);
 
   const { setUserData, logout } = useAuth();
 
@@ -43,6 +51,17 @@ const Home: NextPage = () => {
       path: '/',
     });
 
+    e.target.reset();
+  };
+
+  const onChangePassword = async (
+    { currentPassword, newPassword, confirmNewPassword },
+    e
+  ) => {
+    const { data } = await chengePassword({
+      variables: { currentPassword, newPassword, confirmNewPassword },
+    });
+    console.log(data);
     e.target.reset();
   };
 
@@ -82,6 +101,29 @@ const Home: NextPage = () => {
         />
         <button type="submit">ログイン</button>
       </form>
+
+      <form onSubmit={changePasswordHandleSubmit(onChangePassword)}>
+        <input
+          name="currentPassword"
+          type="text"
+          placeholder="現在のパスワード"
+          ref={changePasswordRegister}
+        />
+        <input
+          name="newPassword"
+          type="text"
+          placeholder="新しいパスワード"
+          ref={changePasswordRegister}
+        />
+        <input
+          name="confirmNewPassword"
+          type="text"
+          placeholder="新しいパスワード再入力"
+          ref={changePasswordRegister}
+        />
+        <button type="submit">パスワード変更</button>
+      </form>
+
       <button onClick={logout}>ログアウト</button>
     </>
   );
