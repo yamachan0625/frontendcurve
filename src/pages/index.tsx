@@ -9,7 +9,7 @@ import useAuth from '~/contexts/auth';
 import { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [login] = useMutation(LOGIN);
 
   const {
@@ -64,6 +64,7 @@ const Home: NextPage = () => {
     console.log(data);
     e.target.reset();
   };
+  console.log(errors);
 
   return (
     <>
@@ -75,13 +76,33 @@ const Home: NextPage = () => {
           name="email"
           type="text"
           placeholder="メールアドレス"
-          ref={signupRegister}
+          ref={signupRegister({
+            required: 'メールアドレスは必須です',
+            pattern: {
+              value: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
+              message: 'フォーマットが不適切です',
+            },
+          })}
         />
         <input
           name="password"
           type="text"
           placeholder="パスワード"
-          ref={signupRegister}
+          ref={signupRegister({
+            required: 'パスワードは必須です',
+            minLength: {
+              value: 8,
+              message: '8文字以上100文字以下で入力してください',
+            },
+            maxLength: {
+              value: 100,
+              message: '8文字以上100文字以下で入力してください',
+            },
+            pattern: {
+              value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+              message: '英字と数字両方を含むパスワードを設定してください',
+            },
+          })}
         />
         <button type="submit">新規登録</button>
       </form>
@@ -91,14 +112,32 @@ const Home: NextPage = () => {
           name="email"
           type="text"
           placeholder="メールアドレス"
-          ref={register}
+          ref={register({
+            required: 'メールアドレスは必須です',
+            pattern: {
+              value: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
+              message: 'フォーマットが不適切です',
+            },
+          })}
         />
+        <p>{errors.email && errors.email.message}</p>
         <input
           name="password"
           type="text"
           placeholder="パスワード"
-          ref={register}
+          ref={register({
+            required: 'パスワードは必須です',
+            minLength: {
+              value: 8,
+              message: '8文字以上100文字以下で入力してください',
+            },
+            maxLength: {
+              value: 100,
+              message: '8文字以上100文字以下で入力してください',
+            },
+          })}
         />
+        <p>{errors.password && errors.password.message}</p>
         <button type="submit">ログイン</button>
       </form>
 
