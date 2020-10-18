@@ -1,6 +1,9 @@
 import React from 'react';
 import { AppProps /**AppContext  */ } from 'next/app';
 import { setContext } from '@apollo/client/link/context';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '../../src/theme';
 import {
   ApolloClient,
   InMemoryCache,
@@ -52,9 +55,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <React.Fragment>
       <ApolloProvider client={client}>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </ThemeProvider>
       </ApolloProvider>
     </React.Fragment>
   );
