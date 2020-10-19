@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
     destroyCookie(null, 'userId');
     setUser(null);
     // TODO:ログアウト後に遷移させたいページを指定
-    router.push('/');
+    router.push('/auth');
   };
 
   return (
@@ -60,10 +60,12 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export default function useAuth() {
+const useAuth = () => {
   const context = useContext(AuthContext);
   return context;
-}
+};
+
+export default useAuth;
 
 export const useProtectRoute = () => {
   const { setUserData, setLoadingState } = useAuth();
@@ -94,12 +96,29 @@ export const useProtectRoute = () => {
     if (userId) {
       setLoadingState(false);
     } else {
-      if (currentPath !== '/') {
+      if (currentPath !== '/auth') {
         // ログインページにリダイレクトさせたい
-        router.push('/');
+        router.push('/auth');
       }
     }
   }, [currentPath]);
+
+  return;
+};
+
+export const useAuthProtect = () => {
+  const { setLoadingState } = useAuth();
+  const { userId } = parseCookies();
+  const router = useRouter();
+
+  useEffect(() => {
+    setLoadingState(true);
+    if (userId) {
+      router.back();
+    } else {
+      setLoadingState(false);
+    }
+  }, []);
 
   return;
 };
