@@ -5,16 +5,17 @@ import { useRouter } from 'next/router';
 
 import { CURRENET_USER } from '~/queries/queries';
 
-export interface Auth {
-  login: {
-    token: string;
-    userId: string;
-  };
-}
+export type Auth = {
+  refreshToken: string;
+  token: string;
+  userId: string;
+};
 
 const AuthContext = createContext({
   isAuthenticated: false,
   user: null,
+  errorMessage: '',
+  setAuthErrorMessage: (value: string) => {},
   setUserData: (value: Auth) => {},
   setLoadingState: (value: boolean) => {},
   logout: () => {},
@@ -28,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   // ログイン処理中のローデイング
   const [loading, setLoading] = useState(true);
+  // 認証時のエラーメッセージ
+  const [errorMessage, setErrorMessage] = useState('');
 
   const setUserData = (data: Auth): void => {
     setUser(data);
@@ -35,6 +38,10 @@ export const AuthProvider = ({ children }) => {
 
   const setLoadingState = (value: boolean) => {
     setLoading(value);
+  };
+
+  const setAuthErrorMessage = (value: string) => {
+    setErrorMessage(value);
   };
 
   const logout = () => {
@@ -49,6 +56,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated: !!user,
         user,
+        errorMessage,
+        setAuthErrorMessage,
         setUserData,
         setLoadingState,
         logout,

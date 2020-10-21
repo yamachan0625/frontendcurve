@@ -3,7 +3,7 @@ import { AppProps /**AppContext  */ } from 'next/app';
 import { setContext } from '@apollo/client/link/context';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../../src/theme';
+import theme from '../styles/theme';
 import {
   ApolloClient,
   InMemoryCache,
