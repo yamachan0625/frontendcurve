@@ -9,13 +9,13 @@ import useAuth from '~/contexts/auth';
 import { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const [login] = useMutation(LOGIN);
+  // const { register, handleSubmit, errors } = useForm();
+  // const [login] = useMutation(LOGIN);
 
-  const {
-    register: signupRegister,
-    handleSubmit: signupHandleSubmit,
-  } = useForm();
+  // const {
+  //   register: signupRegister,
+  //   handleSubmit: signupHandleSubmit,
+  // } = useForm();
 
   const [signup] = useMutation(SIGNUP);
 
@@ -28,18 +28,18 @@ const Home: NextPage = () => {
 
   const { setUserData, logout } = useAuth();
 
-  const onSubmit = async ({ email, password }, e) => {
-    const { data } = await login({ variables: { email, password } });
-    setUserData(data.login);
+  // const onSubmit = async ({ email, password }, e) => {
+  //   const { data } = await login({ variables: { email, password } });
+  //   setUserData(data.login);
 
-    setCookie(null, 'userId', data.login.userId, {
-      maxAge: 60 * 60 * 24 * 7,
-      httponly: true,
-      path: '/',
-    });
+  //   setCookie(null, 'userId', data.login.userId, {
+  //     maxAge: 60 * 60 * 24 * 7,
+  //     httponly: true,
+  //     path: '/',
+  //   });
 
-    e.target.reset();
-  };
+  //   e.target.reset();
+  // };
 
   const onSignup = async ({ email, password }, e) => {
     const { data } = await signup({ variables: { email, password } });
@@ -64,11 +64,10 @@ const Home: NextPage = () => {
     console.log(data);
     e.target.reset();
   };
-  console.log(errors);
 
   return (
     <>
-      <Link href="/example">
+      {/* <Link href="/example">
         <a>Exampleに飛ぶよ</a>
       </Link>
       <form onSubmit={signupHandleSubmit(onSignup)}>
@@ -139,7 +138,7 @@ const Home: NextPage = () => {
         />
         <p>{errors.password && errors.password.message}</p>
         <button type="submit">ログイン</button>
-      </form>
+      </form> */}
 
       <form onSubmit={changePasswordHandleSubmit(onChangePassword)}>
         <input

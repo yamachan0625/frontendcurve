@@ -5,16 +5,17 @@ import { useRouter } from 'next/router';
 
 import { CURRENET_USER } from '~/queries/queries';
 
-export interface Auth {
-  login: {
-    token: string;
-    userId: string;
-  };
-}
+export type Auth = {
+  refreshToken: string;
+  token: string;
+  userId: string;
+};
 
 const AuthContext = createContext({
   isAuthenticated: false,
   user: null,
+  errorMessage: '',
+  setAuthErrorMessage: (value: string) => {},
   setUserData: (value: Auth) => {},
   setLoadingState: (value: boolean) => {},
   logout: () => {},
@@ -28,6 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   // ログイン処理中のローデイング
   const [loading, setLoading] = useState(true);
+  // 認証時のエラーメッセージ
+  const [errorMessage, setErrorMessage] = useState('');
 
   const setUserData = (data: Auth): void => {
     setUser(data);
@@ -37,11 +40,15 @@ export const AuthProvider = ({ children }) => {
     setLoading(value);
   };
 
+  const setAuthErrorMessage = (value: string) => {
+    setErrorMessage(value);
+  };
+
   const logout = () => {
     destroyCookie(null, 'userId');
     setUser(null);
     // TODO:ログアウト後に遷移させたいページを指定
-    router.push('/');
+    router.push('/auth');
   };
 
   return (
@@ -49,6 +56,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated: !!user,
         user,
+        errorMessage,
+        setAuthErrorMessage,
         setUserData,
         setLoadingState,
         logout,
@@ -60,10 +69,12 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export default function useAuth() {
+const useAuth = () => {
   const context = useContext(AuthContext);
   return context;
-}
+};
+
+export default useAuth;
 
 export const useProtectRoute = () => {
   const { setUserData, setLoadingState } = useAuth();
@@ -94,12 +105,29 @@ export const useProtectRoute = () => {
     if (userId) {
       setLoadingState(false);
     } else {
-      if (currentPath !== '/') {
+      if (currentPath !== '/auth') {
         // ログインページにリダイレクトさせたい
-        router.push('/');
+        router.push('/auth');
       }
     }
   }, [currentPath]);
+
+  return;
+};
+
+export const useAuthProtect = () => {
+  const { setLoadingState } = useAuth();
+  const { userId } = parseCookies();
+  const router = useRouter();
+
+  useEffect(() => {
+    setLoadingState(true);
+    if (userId) {
+      router.back();
+    } else {
+      setLoadingState(false);
+    }
+  }, []);
 
   return;
 };
