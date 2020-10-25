@@ -76,6 +76,7 @@ const useAuth = () => {
 
 export default useAuth;
 
+/** 非ログインの場合ログインページにリダイレクトさせる */
 export const useProtectRoute = () => {
   const { setUserData, setLoadingState } = useAuth();
   const client = useApolloClient();

@@ -2,13 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { CHANGE_PASSWORD } from '~/queries/queries';
-import useAuth from '~/contexts/auth';
+import useAuth, { useProtectRoute } from '~/contexts/auth';
 import { MainTemplate } from '~/components/templates/mainTemplate';
 import Typography from '@material-ui/core/Typography';
 
 import { NextPage } from 'next';
 
 const Home: NextPage = () => {
+  useProtectRoute();
   const {
     register: changePasswordRegister,
     handleSubmit: changePasswordHandleSubmit,
