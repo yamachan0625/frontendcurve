@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Badge from '@material-ui/core/Badge';
@@ -7,14 +6,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import MenuItem from '@material-ui/core/MenuItem';
-import { MenuItemProps } from '@material-ui/core';
 
-import { HeadericonButton } from '~/components/atoms/headerIconButton';
-import { HeaderDesktopMenu } from '~/components/molecules/headerDesktopMenu';
-import { HeaderMobileMenu } from '~/components/molecules/headerMobileMenu';
+import { HeadericonButton } from '~/components/atoms/HeaderIconButton';
+import { HeaderDesktopMenu } from '~/components/molecules/HeaderDesktopMenu';
+import { HeaderMobileMenu } from '~/components/molecules/HeaderMobileMenu';
 import { useAnchorEl } from '~/hooks/useAnchorEl';
-import { useStyles } from './headerBarStyle';
+import { useStyles } from './HeaderBarStyle';
 
 type Props = {
   handleDrawerToggle: () => void;
@@ -83,21 +80,3 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
     </div>
   );
 };
-
-type LinkMenuItemProps = Omit<
-  MenuItemProps<'a', { href: string }>,
-  'component' | 'button'
->;
-
-export const LinkMenuItem = React.forwardRef<
-  HTMLAnchorElement,
-  LinkMenuItemProps
->(function LinkMenuItem({ href, children }, forwardedRef) {
-  return (
-    <Link href={href}>
-      <MenuItem component="a" button ref={forwardedRef}>
-        {children}
-      </MenuItem>
-    </Link>
-  );
-});

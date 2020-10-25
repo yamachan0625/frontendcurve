@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { CHANGE_PASSWORD } from '~/queries/queries';
 import useAuth, { useProtectRoute } from '~/contexts/auth';
-import { MainTemplate } from '~/components/templates/mainTemplate';
+import { MainTemplate } from '~/components/templates/MainTemplate';
 import Typography from '@material-ui/core/Typography';
 
 import { NextPage } from 'next';

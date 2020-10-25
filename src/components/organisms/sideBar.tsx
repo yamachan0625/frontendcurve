@@ -3,8 +3,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import { useTheme } from '@material-ui/core/styles';
 
-import { DrawerItem } from '~/components/molecules/drawerItem';
-import { useStyles } from './sideBarStyle';
+import { DrawerItem } from '~/components/molecules/DrawerItem';
+import { useStyles } from './SideBarStyle';
 
 type Props = {
   mobileOpen: boolean;

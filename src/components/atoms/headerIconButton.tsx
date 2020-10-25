@@ -1,14 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    iconButtonRoot: {
-      color: '#000',
-    },
-  })
-);
+import { useStyles } from './HeadericonButtonStyle';
 
 type Props = {
   label: string;

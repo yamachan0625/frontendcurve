@@ -1,9 +1,9 @@
 import React from 'react';
-import { SideBar } from '~/components/organisms/sideBar';
-import { HeaderBar } from '~/components/organisms/headerBar';
-import { MainBody } from '~/components/organisms/mainBody';
+import { SideBar } from '~/components/organisms/SideBar';
+import { HeaderBar } from '~/components/organisms/HeaderBar';
+import { MainBody } from '~/components/organisms/MainBody';
 
-import { useStyles } from './mainTemplateStyle';
+import { useStyles } from './MainTemplateStyle';
 import { useMobileOpen } from '~/hooks/useMobileOpen';
 
 export const MainTemplate = ({ children }) => {

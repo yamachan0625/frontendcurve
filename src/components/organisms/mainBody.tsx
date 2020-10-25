@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useStyles } from './mainBodyStyle';
+import { useStyles } from './MainBodyStyle';
 
 export const MainBody: React.FC = ({ children }) => {
   const classes = useStyles();

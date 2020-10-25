@@ -6,7 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
-import { useStyles } from './drawerItemStyle';
+import { useStyles } from './DrawerItemStyle';
 import { useSelectedIndex } from '~/hooks/useSelectedIndex';
 
 export const DrawerItem: React.FC = () => {

@@ -6,7 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-import { HeadericonButton } from '~/components/atoms/headerIconButton';
+import { HeadericonButton } from '~/components/atoms/HeaderIconButton';
 
 type Props = {
   mobileMoreAnchorEl: HTMLElement;

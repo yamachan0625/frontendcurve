@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import useAuth from '~/contexts/auth';
 
-import { LinkMenuItem } from '~/components/atoms/common/linkMenuItem';
+import { LinkMenuItem } from '~/components/atoms/common/LinkMenuItem';
 
 type Props = {
   userAnchorEl: HTMLElement;
