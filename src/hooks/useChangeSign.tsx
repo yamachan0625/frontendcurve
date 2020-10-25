@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export const useChangeSign = () => {
   const [isLogin, setLogin] = React.useState(true);
 
-  const changeSign = (isLogin: boolean) => {
-    setLogin(isLogin);
-  };
+  const changeSign = useCallback(
+    (isLogin: boolean) => {
+      setLogin(isLogin);
+    },
+    [isLogin]
+  );
 
   return [isLogin, changeSign] as const;
 };
