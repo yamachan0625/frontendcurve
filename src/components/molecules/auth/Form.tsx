@@ -19,7 +19,7 @@ type Props = {
 export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { setUserData, setAuthErrorMessage } = useAuth();
+  const { setUserData, showAleartMessage } = useAuth();
 
   const { register, handleSubmit, errors } = useForm();
   const [authFunc] = useMutation(type);
@@ -34,7 +34,6 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
       });
 
       setUserData(data[dataKey]);
-
       setCookie(null, 'userId', data[dataKey].userId, {
         maxAge: 60 * 60 * 24 * 7,
         httponly: true,
@@ -42,9 +41,13 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
       });
 
       e.target.reset();
+
+      const authType = dataKey === 'login' ? 'ログイン' : '新規登録';
+      showAleartMessage(`${authType}しました`);
+
       await router.push('/');
     } catch (error) {
-      setAuthErrorMessage(error.message);
+      showAleartMessage(error.message, 'error');
     }
   };
 
