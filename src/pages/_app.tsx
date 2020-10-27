@@ -3,15 +3,18 @@ import { AppProps /**AppContext  */ } from 'next/app';
 import { setContext } from '@apollo/client/link/context';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../styles/theme';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
-import { AuthProvider } from '../contexts/auth';
+import { positions, Provider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
+
+import { AuthProvider } from '~/contexts/auth';
 import '~/styles/reset.css';
+import theme from '~/styles/theme';
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -46,6 +49,10 @@ const client = new ApolloClient({
 //   });
 // };
 
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_CENTER,
+};
 /**
  * pageコンポーネント全てをラップする。
  * 共通で行いたい処理を書く
@@ -53,16 +60,16 @@ const client = new ApolloClient({
 const MyApp = ({ Component, pageProps }: AppProps) => {
   // const client = createApolloClient();
   return (
-    <React.Fragment>
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider template={AlertTemplate} {...options}>
           <AuthProvider>
             <Component {...pageProps} />
           </AuthProvider>
-        </ThemeProvider>
-      </ApolloProvider>
-    </React.Fragment>
+        </Provider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 };
 

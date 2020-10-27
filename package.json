@@ -8,6 +8,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@types/react-alert": "^5.2.0",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "http-proxy-middleware": "^1.0.5",
@@ -15,6 +16,8 @@
     "next": "^9.5.1",
     "nookies": "^2.4.0",
     "react": "^16.13.1",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.4.1"
   },

@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { parseCookies, destroyCookie } from 'nookies';
 import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useAlert } from 'react-alert';
 
 import { CURRENET_USER } from '~/queries/queries';
 
@@ -14,23 +15,24 @@ export type Auth = {
 const AuthContext = createContext({
   isAuthenticated: false,
   user: null,
-  errorMessage: '',
-  setAuthErrorMessage: (value: string) => {},
   setUserData: (value: Auth) => {},
   setLoadingState: (value: boolean) => {},
   logout: () => {},
   loading: true,
+  showAleartMessage: (
+    message: string,
+    type?: 'info' | 'success' | 'error'
+  ) => {},
 });
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
+  const alert = useAlert();
 
   // グローバルで管理したいuser情報を持つstate
   const [user, setUser] = useState(null);
   // ログイン処理中のローデイング
   const [loading, setLoading] = useState(true);
-  // 認証時のエラーメッセージ
-  const [errorMessage, setErrorMessage] = useState('');
 
   const setUserData = (data: Auth): void => {
     setUser(data);
@@ -40,8 +42,13 @@ export const AuthProvider = ({ children }) => {
     setLoading(value);
   };
 
-  const setAuthErrorMessage = (value: string) => {
-    setErrorMessage(value);
+  // アラートメッセージを表示
+  // TODO:現在は認証でしか使ってないが、グローバルに使いたい
+  const showAleartMessage = (
+    message: string,
+    type: 'info' | 'success' | 'error' = 'success'
+  ) => {
+    alert.show(message, { type });
   };
 
   const logout = () => {
@@ -49,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     // TODO:ログアウト後に遷移させたいページを指定
     router.push('/auth');
+    showAleartMessage('ログアウトしました');
   };
 
   return (
@@ -56,12 +64,11 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated: !!user,
         user,
-        errorMessage,
-        setAuthErrorMessage,
         setUserData,
         setLoadingState,
         logout,
         loading,
+        showAleartMessage,
       }}
     >
       {children}
