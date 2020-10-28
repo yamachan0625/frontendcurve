@@ -31,7 +31,7 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
   ] = useAnchorEl();
 
   return (
-    <div className={classes.grow}>
+    <>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <HeadericonButton
@@ -77,6 +77,6 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
         notificationsAnchorEl={notificationsAnchorEl}
         handleMenuClose={handleMenuClose}
       />
-    </div>
+    </>
   );
 };

@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-      backgroundColor: '#000',
+      backgroundColor: theme.palette.primary.dark,
       padding: '0 10px',
     },
   })

@@ -13,11 +13,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     iconRoot: {
       minWidth: '0px',
       paddingRight: theme.spacing(1),
-      color: '#FFFFFF',
+      color: theme.palette.primary.contrastText,
     },
     ListItemTextRoot: {
       fontSize: theme.spacing(2),
-      color: '#FFFFFF',
+      color: theme.palette.primary.contrastText,
     },
     ListItemSelected: {
       backgroundColor: '#888 !important',

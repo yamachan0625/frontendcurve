@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
-      backgroundColor: '#FFFFFF',
+      backgroundColor: theme.palette.primary.main,
     },
     menuButton: {
       marginRight: theme.spacing(2),
