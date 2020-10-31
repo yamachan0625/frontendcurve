@@ -47,7 +47,7 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
               label="how new notifications"
               onClick={handleNotificationsMenuOpen}
             >
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={6} color="error">
                 <NotificationsIcon />
               </Badge>
             </HeadericonButton>

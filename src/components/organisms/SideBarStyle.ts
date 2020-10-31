@@ -4,6 +4,7 @@ const drawerWidth = 200;
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    toolbar: theme.mixins.toolbar,
     drawer: {
       [theme.breakpoints.up('sm')]: {
         width: drawerWidth,
@@ -14,6 +15,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
       backgroundColor: theme.palette.primary.dark,
       padding: '0 10px',
+    },
+    DividerRoot: {
+      backgroundColor: '#FFFFFF',
     },
   })
 );
