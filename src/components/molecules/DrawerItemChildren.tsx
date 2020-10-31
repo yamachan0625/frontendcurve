@@ -19,7 +19,7 @@ export const DrawerItemChildren: React.FC<Props> = ({ name, link }) => {
       <ListItem
         classes={{
           selected: classes.ListItemSelected,
-          root: classes.ListItemRoot,
+          root: classes.ListItemRootChild,
         }}
         button
         component="a"

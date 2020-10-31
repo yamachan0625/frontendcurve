@@ -2,8 +2,11 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    ListItemRoot: {
+    ListItemRootChild: {
       paddingLeft: '50px',
+      '&:hover': {
+        background: theme.palette.primary.main,
+      },
     },
     ListItemTextRoot: {
       fontSize: theme.spacing(2),

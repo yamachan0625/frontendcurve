@@ -25,6 +25,19 @@ type Props = {
   index: number;
 };
 
+const wrapperStyles = {
+  parent: {
+    backgroundColor: 'yellow',
+    '&:hover $child': {
+      color: 'red',
+    },
+  },
+  child: {
+    fontSize: '2em',
+    padding: 24,
+  },
+};
+
 export const DrawerItem: React.FC<Props> = ({
   name,
   Icon,
@@ -40,11 +53,10 @@ export const DrawerItem: React.FC<Props> = ({
     <ListItem
       classes={{
         selected: classes.ListItemSelected,
+        root: classes.ListItemRoot,
       }}
       button
       component={link === '' ? 'div' : 'a'}
-      // TODO selectできるようにする
-      // selected={selectedIndex === index}
       onClick={() => handleListItemClick(index)}
     >
       <ListItemIcon classes={{ root: classes.iconRoot }}>

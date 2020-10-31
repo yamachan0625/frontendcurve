@@ -15,7 +15,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.contrastText,
     },
     ListItemRoot: {
-      paddingLeft: '50px',
+      '&:hover': {
+        background: theme.palette.primary.main,
+      },
     },
     ListItemTextRoot: {
       fontSize: theme.spacing(2),
