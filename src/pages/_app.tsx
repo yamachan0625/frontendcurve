@@ -61,14 +61,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   // const client = createApolloClient();
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Provider template={AlertTemplate} {...options}>
-          <AuthProvider>
+      <Provider template={AlertTemplate} {...options}>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Component {...pageProps} />
-          </AuthProvider>
-        </Provider>
-      </ThemeProvider>
+          </ThemeProvider>
+        </AuthProvider>
+      </Provider>
     </ApolloProvider>
   );
 };
