@@ -14,6 +14,7 @@ import AlertTemplate from 'react-alert-template-basic';
 
 import { AuthProvider } from '~/contexts/auth';
 import '~/styles/reset.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import theme from '~/styles/theme';
 
 const link = createHttpLink({
