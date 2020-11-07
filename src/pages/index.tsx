@@ -1,19 +1,12 @@
 import React from 'react';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import { useProtectRoute } from '~/contexts/auth';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import { HorizontalBar, Line } from 'react-chartjs-2';
 import { Grid } from '@material-ui/core';
-
-import { MainTemplate } from '~/components/templates/MainTemplate';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
 import { NextPage } from 'next';
+
+import { FilterMenu } from '~/components/organisms/common/FilterMenu';
+import { useProtectRoute } from '~/contexts/auth';
+import { MainTemplate } from '~/components/templates/MainTemplate';
+import { LineChartFilterMenu } from '~/components/molecules/LineChartFilterMenu';
 
 const dummyLabel = [
   'Node.js',
@@ -114,41 +107,14 @@ const dummyColorBorder = [
   'rgba(142, 214, 251, 1)',
 ];
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    FilterTitle: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  })
-);
-
 const Home: NextPage = () => {
   useProtectRoute();
-  const classes = useStyles();
 
   return (
     <MainTemplate>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>
-            <div className={classes.FilterTitle}>
-              <SettingsOutlinedIcon />
-              絞り込み
-            </div>
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      <FilterMenu>
+        <LineChartFilterMenu />
+      </FilterMenu>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <HorizontalBar

@@ -6,7 +6,9 @@ import useAuth, { useProtectRoute } from '~/contexts/auth';
 import { HorizontalBar, Line } from 'react-chartjs-2';
 import { Grid } from '@material-ui/core';
 
+import { FilterMenu } from '~/components/organisms/common/FilterMenu';
 import { MainTemplate } from '~/components/templates/MainTemplate';
+import { LineChartFilterMenu } from '~/components/molecules/LineChartFilterMenu';
 
 import { NextPage } from 'next';
 
@@ -151,6 +153,9 @@ const Home: NextPage = () => {
         />
         <button type="submit">パスワード変更</button>
       </form> */}
+      <FilterMenu>
+        <LineChartFilterMenu />
+      </FilterMenu>
       <Grid item xs={12} md={6}>
         <Line
           data={{

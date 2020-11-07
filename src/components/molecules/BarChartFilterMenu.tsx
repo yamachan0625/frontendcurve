@@ -2,9 +2,11 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FormControlLabel, Radio, RadioGroup, Button } from '@material-ui/core';
 import DatePicker, { registerLocale } from 'react-datepicker';
+import { useLazyQuery } from '@apollo/client';
 import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
 
+import { GET_BAR_CHART_LIST } from '~/queries/queries';
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from './ChartFilterMenuStyle';
 
@@ -19,15 +21,23 @@ export const BarChartFilterMenu: React.FC = () => {
 
   const { register, handleSubmit, control } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
+  const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
+
+  const onSubmit = ({ date, sortOrder }) => {
+    console.log(date);
+
+    getBarChartList({ variables: { date, sortOrder } });
+  };
+
+  console.log('data', data);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FilterGroupName name="並び順">
           <Controller
-            name="sort"
+            name="sortOrder"
             as={
-              <RadioGroup name="sort">
+              <RadioGroup name="sortOrder">
                 {sortList.map((item) => (
                   <FormControlLabel
                     key={item}
