@@ -60,11 +60,13 @@ export const MOVIE_LIST = gql`
 export const GET_BAR_CHART_LIST = gql`
   query getBarChartList($date: Date!, $sortOrder: String!) {
     getBarChartList(date: $date, sortOrder: $sortOrder) {
-      siteName
+      scrapingDate
       jobData {
-        React
-        Angular
-        VueJs
+        siteName
+        skillName
+        jobVacancies
+        chartColor
+        chartBorderColor
       }
     }
   }
