@@ -31,7 +31,7 @@ export const useBarChart = () => {
   }, []);
 
   React.useEffect(() => {
-    if (data && data.getBarChartList.maxDate) {
+    if (data && data.getBarChartList.minDate) {
       /** datepickerのminDateをapiからもらった値で書き換え */
       setMindate(new Date(data.getBarChartList.minDate));
     }
@@ -60,8 +60,6 @@ const BarChart: NextPage = () => {
     minDate,
     now,
   ] = useBarChart();
-
-  console.log(selectDate);
 
   const barChart: JSX.Element = (() => {
     if (loading) return <p>Loading ...</p>;
