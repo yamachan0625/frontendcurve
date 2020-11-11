@@ -13,36 +13,59 @@ import { BarChartFilterMenu } from '~/components/molecules/BarChartFilterMenu';
 export const useBarChart = () => {
   const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
 
-  const callGetBarChartList = (date) => {
+  const now = new Date();
+  now.setHours(now.getHours() - 4);
+
+  const [selectDate, setSelectDate] = React.useState(now);
+
+  const [minDate, setMindate] = React.useState<null | Date>(null);
+
+  const callGetBarChartList = React.useCallback((date) => {
     getBarChartList({
       variables: { date: date, sortOrder: 'default' },
     });
-  };
+  }, []);
 
-  return [getBarChartList, data, loading, callGetBarChartList] as const;
+  React.useEffect(() => {
+    callGetBarChartList(new Date());
+  }, []);
+
+  React.useEffect(() => {
+    if (data && data.getBarChartList.maxDate) {
+      /** datepickerのminDateをapiからもらった値で書き換え */
+      setMindate(new Date(data.getBarChartList.minDate));
+    }
+  }, [data]);
+
+  return [
+    getBarChartList,
+    data,
+    loading,
+    selectDate,
+    setSelectDate,
+    minDate,
+    now,
+  ] as const;
 };
 
 const BarChart: NextPage = () => {
   useProtectRoute();
-  const [getBarChartList, data, loading, callGetBarChartList] = useBarChart();
 
-  const now = new Date();
-  const yesterday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() - 1
-  );
+  const [
+    getBarChartList,
+    data,
+    loading,
+    selectDate,
+    setSelectDate,
+    minDate,
+    now,
+  ] = useBarChart();
 
-  React.useEffect(() => {
-    callGetBarChartList(now);
-  }, []);
+  console.log(selectDate);
 
-  const barChart = (() => {
+  const barChart: JSX.Element = (() => {
     if (loading) return <p>Loading ...</p>;
     if (data) {
-      if (!data.getBarChartList.jobData.length) {
-        callGetBarChartList(yesterday);
-      }
       return data.getBarChartList.jobData.map((data, i) => {
         return (
           <Grid item xs={12} md={6} key={i}>
@@ -108,9 +131,15 @@ const BarChart: NextPage = () => {
   return (
     <MainTemplate>
       <FilterMenu>
-        <BarChartFilterMenu getBarChartList={getBarChartList} />
+        <BarChartFilterMenu
+          getBarChartList={getBarChartList}
+          selectDate={selectDate}
+          setSelectDate={setSelectDate}
+          minDate={minDate}
+          maxDate={now}
+        />
       </FilterMenu>
-      <Grid container spacing={3}>
+      <Grid container spacing={0}>
         {barChart}
       </Grid>
     </MainTemplate>

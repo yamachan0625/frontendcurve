@@ -61,6 +61,7 @@ export const GET_BAR_CHART_LIST = gql`
   query getBarChartList($date: Date!, $sortOrder: String!) {
     getBarChartList(date: $date, sortOrder: $sortOrder) {
       scrapingDate
+      minDate
       jobData {
         siteName
         skillName

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { QueryLazyOptions } from '@apollo/client';
 import { FormControlLabel, Radio, RadioGroup, Button } from '@material-ui/core';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import ja from 'date-fns/locale/ja';
@@ -10,18 +11,27 @@ import { useStyles } from './ChartFilterMenuStyle';
 
 const sortList = ['デフォルト', '降順', '昇順'] as const;
 
-export const BarChartFilterMenu = ({ getBarChartList }) => {
+type Props = {
+  getBarChartList: (options?: QueryLazyOptions<Record<string, any>>) => void;
+  selectDate: Date;
+  setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
+  minDate: Date;
+  maxDate: Date;
+};
+
+export const BarChartFilterMenu: React.FC<Props> = ({
+  getBarChartList,
+  selectDate,
+  setSelectDate,
+  minDate,
+  maxDate,
+}) => {
   const classes = useStyles();
-  const [selectDate, setSelectDate] = React.useState(new Date());
 
   const { register, handleSubmit, control } = useForm();
 
   const onSubmit = ({ date, sortOrder }) => {
     getBarChartList({ variables: { date, sortOrder } });
-  };
-
-  const aaa = (selectDate) => {
-    setSelectDate(selectDate);
   };
 
   return (
@@ -51,11 +61,10 @@ export const BarChartFilterMenu = ({ getBarChartList }) => {
           <DatePicker
             locale="ja"
             selected={selectDate}
-            onChange={(date) => aaa(date)}
+            onChange={(date) => setSelectDate(date)}
             dateFormat="yyyy/MM/dd"
-            // minDate={new Date()}
-            // maxDate={new Date()}
-            showDisabledMonthNavigation
+            minDate={minDate}
+            maxDate={maxDate}
           />
           <input
             value={String(selectDate)}
