@@ -72,3 +72,19 @@ export const GET_BAR_CHART_LIST = gql`
     }
   }
 `;
+
+export const GET_LINE_CHART_LIST = gql`
+  query getLineChartList($dateRange: String!, $skills: [String]!) {
+    getLineChartList(dateRange: $dateRange, skills: $skills) {
+      rangeDate
+      jobData {
+        siteName
+        skillData {
+          label
+          data
+          borderColor
+        }
+      }
+    }
+  }
+`;

@@ -1,5 +1,8 @@
 import React from 'react';
 import { HorizontalBar, Line } from 'react-chartjs-2';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@apollo/client';
+import { CHANGE_PASSWORD } from '~/queries/queries';
 import { Grid } from '@material-ui/core';
 import { NextPage } from 'next';
 
@@ -110,11 +113,46 @@ const dummyColorBorder = [
 const Home: NextPage = () => {
   useProtectRoute();
 
+  const {
+    register: changePasswordRegister,
+    handleSubmit: changePasswordHandleSubmit,
+  } = useForm();
+
+  const [chengePassword] = useMutation(CHANGE_PASSWORD);
+
+  const onChangePassword = async (
+    { currentPassword, newPassword, confirmNewPassword },
+    e
+  ) => {
+    const { data } = await chengePassword({
+      variables: { currentPassword, newPassword, confirmNewPassword },
+    });
+    e.target.reset();
+  };
+
   return (
     <MainTemplate>
-      <FilterMenu>
-        <LineChartFilterMenu />
-      </FilterMenu>
+      {/* <form onSubmit={changePasswordHandleSubmit(onChangePassword)}>
+        <input
+          name="currentPassword"
+          type="text"
+          placeholder="現在のパスワード"
+          ref={changePasswordRegister}
+        />
+        <input
+          name="newPassword"
+          type="text"
+          placeholder="新しいパスワード"
+          ref={changePasswordRegister}
+        />
+        <input
+          name="confirmNewPassword"
+          type="text"
+          placeholder="新しいパスワード再入力"
+          ref={changePasswordRegister}
+        />
+        <button type="submit">パスワード変更</button>
+      </form> */}
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <HorizontalBar

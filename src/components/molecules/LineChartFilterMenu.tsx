@@ -7,6 +7,7 @@ import {
   RadioGroup,
   Button,
 } from '@material-ui/core';
+import { QueryLazyOptions } from '@apollo/client';
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from './ChartFilterMenuStyle';
@@ -19,10 +20,10 @@ const languageList = [
   { label: 'Node.js', name: 'NodeJs' },
   { label: 'Next.js', name: 'NextJs' },
   { label: 'Nuxt.js', name: 'NuxtJs' },
-  { label: 'TypeScript', name: 'Typescript' },
+  { label: 'TypeScript', name: 'TypeScript' },
   { label: 'JavaScript', name: 'JavaScript' },
   { label: 'ReactNative', name: 'ReactNative' },
-  { label: 'Fulutter', name: 'Fulutter' },
+  { label: 'Flutter', name: 'Flutter' },
   { label: 'Electron', name: 'Electron' },
   { label: 'Graphql', name: 'Graphql' },
   { label: 'VueX', name: 'VueX' },
@@ -31,7 +32,11 @@ const languageList = [
   { label: 'Webpack', name: 'Webpack' },
 ] as const;
 
-export const LineChartFilterMenu: React.FC = () => {
+type Props = {
+  getLineChartList: (options?: QueryLazyOptions<Record<string, any>>) => void;
+};
+
+export const LineChartFilterMenu: React.FC<Props> = ({ getLineChartList }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     React: true,
@@ -58,13 +63,26 @@ export const LineChartFilterMenu: React.FC = () => {
   };
 
   const { register, handleSubmit, control } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data) => {
+    const dateRange = data.dateRange;
+    const selectedSkills = Object.entries(data)
+      .map((skills) => {
+        if (skills[1] === true) {
+          // console.log(skills[0]);
+          return skills[0];
+        }
+      })
+      .filter(Boolean);
+
+    getLineChartList({ variables: { dateRange, skills: selectedSkills } });
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FilterGroupName name="期間">
           <Controller
-            name="dataRange"
+            name="dateRange"
             as={
               <RadioGroup name="dateRange">
                 {dateRangeList.map((item) => (

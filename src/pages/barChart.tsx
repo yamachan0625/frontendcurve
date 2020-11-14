@@ -14,6 +14,7 @@ export const useBarChart = () => {
   const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
 
   const now = new Date();
+  // スクレイピングが午前3時に行われるため午前4時に日付が変わるように変更
   now.setHours(now.getHours() - 4);
 
   const [selectDate, setSelectDate] = React.useState(now);
