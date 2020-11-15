@@ -1,0 +1,27 @@
+{
+  "getLineChartList": {
+    "rangeDate": ["10/11", "10/12", "10/13", "10/14", "10/15"],
+    "jobData": [
+      {
+        "siteName": "Green",
+        "skillData": [
+          {
+            "label": "React",
+            "data": [100, 110, 120, 130, 140, 150],
+            "borderColor": "rgba(97, 219, 251, 1)"
+          },
+          {
+            "label": "Angular",
+            "data": [123, 234, 345, 456, 678],
+            "borderColor": "rgba(221, 0, 49, 1)"
+          },
+          {
+            "label": "Vue.js",
+            "data": [45, 50, 34, 56, 67],
+            "borderColor": "rgba(65, 184, 131, 1)"
+          }
+        ]
+      }
+    ]
+  }
+}
