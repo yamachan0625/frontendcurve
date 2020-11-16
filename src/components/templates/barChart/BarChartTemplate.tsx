@@ -5,8 +5,11 @@ import { GET_BAR_CHART_LIST } from '~/queries/queries';
 import { FilterMenu } from '~/components/organisms/common/FilterMenu';
 import { BarChartFilterMenu } from '~/components/molecules/BarChartFilterMenu';
 import { BarChartContent } from '~/components/organisms/BarChartContent';
+import { useAccordion } from '~/hooks/useAccordion';
 
 export const useBarChart = () => {
+  const { accordionElm, toggleAccordion } = useAccordion();
+
   const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
 
   const now = new Date();
@@ -39,6 +42,8 @@ export const useBarChart = () => {
   }, [data]);
 
   return {
+    accordionElm,
+    toggleAccordion,
     getBarChartList,
     data,
     loading,
@@ -51,6 +56,8 @@ export const useBarChart = () => {
 
 export const BarChartTemplate = () => {
   const {
+    accordionElm,
+    toggleAccordion,
     getBarChartList,
     data,
     loading,
@@ -62,13 +69,14 @@ export const BarChartTemplate = () => {
 
   return (
     <>
-      <FilterMenu>
+      <FilterMenu ref={accordionElm}>
         <BarChartFilterMenu
           getBarChartList={getBarChartList}
           selectDate={selectDate}
           setSelectDate={setSelectDate}
           minDate={minDate}
           maxDate={now}
+          toggleAccordion={toggleAccordion}
         />
       </FilterMenu>
       <BarChartContent loading={loading} data={data} />

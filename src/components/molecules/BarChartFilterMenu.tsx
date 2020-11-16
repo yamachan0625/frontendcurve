@@ -17,6 +17,7 @@ type Props = {
   setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
   minDate: Date;
   maxDate: Date;
+  toggleAccordion: () => void;
 };
 
 export const BarChartFilterMenu: React.FC<Props> = ({
@@ -25,6 +26,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
   setSelectDate,
   minDate,
   maxDate,
+  toggleAccordion,
 }) => {
   const classes = useStyles();
 
@@ -32,6 +34,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
 
   const onSubmit = ({ date, sortOrder }) => {
     getBarChartList({ variables: { date, sortOrder } });
+    toggleAccordion();
   };
 
   return (

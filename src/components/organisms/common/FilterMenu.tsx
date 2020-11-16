@@ -8,12 +8,18 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { useStyles } from './FilterMenuStyle';
 
-export const FilterMenu = ({ children }) => {
+type Props = {
+  ref: ((instance: unknown) => void) | React.MutableRefObject<unknown>;
+};
+
+export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
   const classes = useStyles();
 
   return (
     <Accordion className={classes.accordionRoot}>
+      {/* @ts-ignore */}
       <AccordionSummary
+        ref={ref}
         expandIcon={
           <ExpandMoreIcon className={classes.filterIcon} fontSize="large" />
         }
@@ -28,8 +34,8 @@ export const FilterMenu = ({ children }) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography component={'div'}>{children}</Typography>
+        <Typography component={'div'}>{props.children}</Typography>
       </AccordionDetails>
     </Accordion>
   );
-};
+});

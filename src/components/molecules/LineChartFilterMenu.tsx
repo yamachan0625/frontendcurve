@@ -34,9 +34,13 @@ const languageList = [
 
 type Props = {
   getLineChartList: (options?: QueryLazyOptions<Record<string, any>>) => void;
+  toggleAccordion: () => void;
 };
 
-export const LineChartFilterMenu: React.FC<Props> = ({ getLineChartList }) => {
+export const LineChartFilterMenu: React.FC<Props> = ({
+  getLineChartList,
+  toggleAccordion,
+}) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     React: true,
@@ -63,6 +67,7 @@ export const LineChartFilterMenu: React.FC<Props> = ({ getLineChartList }) => {
   };
 
   const { register, handleSubmit, control } = useForm();
+
   const onSubmit = (data) => {
     const dateRange = data.dateRange;
     const selectedSkills = Object.entries(data)
@@ -75,6 +80,7 @@ export const LineChartFilterMenu: React.FC<Props> = ({ getLineChartList }) => {
       .filter(Boolean);
 
     getLineChartList({ variables: { dateRange, skills: selectedSkills } });
+    toggleAccordion();
   };
 
   return (
