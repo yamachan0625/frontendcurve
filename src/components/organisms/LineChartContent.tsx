@@ -16,7 +16,6 @@ export const LineChartContent: React.FC<Props> = ({ loading, data }) => {
     if (loading) return <p>Loading ...</p>;
     if (data) {
       return data.getLineChartList.jobData.map((lineChartData, i) => {
-        console.log();
         return (
           <Grid item xs={12} md={6} key={i}>
             <Line

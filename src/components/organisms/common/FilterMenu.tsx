@@ -7,9 +7,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { useStyles } from './FilterMenuStyle';
+import { ChipList } from '~/components/molecules/ChipList';
 
 type Props = {
   ref: ((instance: unknown) => void) | React.MutableRefObject<unknown>;
+  selectedFilter: string[];
 };
 
 export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
@@ -31,6 +33,7 @@ export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
             <FilterListIcon />
             <span className={classes.span}>絞り込み</span>
           </div>
+          <ChipList chipList={props.selectedFilter} />
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

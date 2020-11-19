@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { QueryLazyOptions } from '@apollo/client';
 import { FormControlLabel, Radio, RadioGroup, Button } from '@material-ui/core';
 import DatePicker, { registerLocale } from 'react-datepicker';
+import dayjs from 'dayjs';
 import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
 
@@ -18,6 +19,7 @@ type Props = {
   minDate: Date;
   maxDate: Date;
   toggleAccordion: () => void;
+  setSelectedFilter: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const BarChartFilterMenu: React.FC<Props> = ({
@@ -27,6 +29,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
   minDate,
   maxDate,
   toggleAccordion,
+  setSelectedFilter,
 }) => {
   const classes = useStyles();
 
@@ -34,6 +37,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
 
   const onSubmit = ({ date, sortOrder }) => {
     getBarChartList({ variables: { date, sortOrder } });
+    setSelectedFilter([sortOrder, String(dayjs(date).format('YYYY/MM/DD'))]);
     toggleAccordion();
   };
 
@@ -61,20 +65,24 @@ export const BarChartFilterMenu: React.FC<Props> = ({
           />
         </FilterGroupName>
         <FilterGroupName name="日付">
-          <DatePicker
-            locale="ja"
-            selected={selectDate}
-            onChange={(date) => setSelectDate(date)}
-            dateFormat="yyyy/MM/dd"
-            minDate={minDate}
-            maxDate={maxDate}
-          />
-          <input
-            value={String(selectDate)}
-            name="date"
-            ref={register}
-            type="hidden"
-          />
+          <div>
+            <DatePicker
+              className={classes.carenderStyle}
+              locale="ja"
+              selected={selectDate}
+              onChange={(date) => setSelectDate(date)}
+              dateFormat="yyyy/MM/dd"
+              minDate={minDate}
+              maxDate={maxDate}
+              placeholderText="日付を選択してください"
+            />
+            <input
+              value={String(selectDate)}
+              name="date"
+              ref={register}
+              type="hidden"
+            />
+          </div>
         </FilterGroupName>
         <Button
           variant="contained"

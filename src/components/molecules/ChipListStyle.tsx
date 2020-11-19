@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       border: `1px solid ${theme.palette.primary.contrastText}`,
-      padding: '0 10px',
+      padding: `${theme.spacing(0.5)}px ${theme.spacing(1.5)}px`,
       borderRadius: '20px',
       color: theme.palette.primary.contrastText,
     },

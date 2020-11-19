@@ -15,5 +15,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       marginTop: theme.spacing(2),
     },
+    carenderStyle: {
+      borderRadius: '4px',
+      // boxShadow: 'inset 0 2px 2px #e9e9e9',
+      border: `1px solid ${theme.palette.primary.light}`,
+      padding: '2px 5px',
+    },
   })
 );
