@@ -34,15 +34,12 @@ export const useLineChartFilter = () => {
   ]);
 
   // スキルのチェックボックス
-  const handleChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSelectSkill({
-        ...selectSkill,
-        [event.target.name]: event.target.checked,
-      });
-    },
-    []
-  );
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectSkill({
+      ...selectSkill,
+      [event.target.name]: event.target.checked,
+    });
+  };
 
   return {
     accordionElm,
