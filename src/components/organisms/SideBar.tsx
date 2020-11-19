@@ -2,6 +2,12 @@ import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import { useTheme } from '@material-ui/core/styles';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import ShowChartIcon from '@material-ui/icons/ShowChart';
+import Divider from '@material-ui/core/Divider';
+
+import List from '@material-ui/core/List';
 
 import { DrawerItem } from '~/components/molecules/DrawerItem';
 import { useStyles } from './SideBarStyle';
@@ -10,6 +16,33 @@ type Props = {
   mobileOpen: boolean;
   handleDrawerToggle: () => void;
 };
+
+const drawerItems = [
+  {
+    name: 'Dashboard',
+    Icon: DashboardIcon,
+    items: [
+      {
+        name: 'レバテック',
+        link: '/example',
+      },
+      {
+        name: 'Green',
+        link: '/example',
+      },
+    ],
+  },
+  {
+    name: 'BarChart',
+    link: '/barChart',
+    Icon: BarChartIcon,
+  },
+  {
+    name: 'LineChart',
+    link: '/lineChart',
+    Icon: ShowChartIcon,
+  },
+];
 
 export const SideBar: React.FC<Props> = ({
   mobileOpen,
@@ -34,7 +67,13 @@ export const SideBar: React.FC<Props> = ({
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <DrawerItem />
+          <List>
+            <div className={classes.toolbar} />
+            <Divider classes={{ root: classes.DividerRoot }} />
+            {drawerItems.map((item, i) => {
+              return <DrawerItem {...item} index={i} key={i} />;
+            })}
+          </List>
         </Drawer>
       </Hidden>
       {/* PC表示用コンテンツ */}
@@ -46,7 +85,13 @@ export const SideBar: React.FC<Props> = ({
           variant="permanent"
           open
         >
-          <DrawerItem />
+          <List>
+            <div className={classes.toolbar} />
+            <Divider classes={{ root: classes.DividerRoot }} />
+            {drawerItems.map((item, i) => {
+              return <DrawerItem {...item} index={i} key={i} />;
+            })}
+          </List>
         </Drawer>
       </Hidden>
     </nav>

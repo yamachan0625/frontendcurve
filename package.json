@@ -9,6 +9,9 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@types/react-alert": "^5.2.0",
+    "chart.js": "^2.9.4",
+    "date-fns": "^2.16.1",
+    "dayjs": "^1.9.6",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "http-proxy-middleware": "^1.0.5",
@@ -18,6 +21,8 @@
     "react": "^16.13.1",
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",
+    "react-chartjs-2": "^2.10.0",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.4.1"
   },

@@ -56,3 +56,35 @@ export const MOVIE_LIST = gql`
     }
   }
 `;
+
+export const GET_BAR_CHART_LIST = gql`
+  query getBarChartList($date: Date!, $sortOrder: String!) {
+    getBarChartList(date: $date, sortOrder: $sortOrder) {
+      scrapingDate
+      minDate
+      jobData {
+        siteName
+        skillName
+        jobVacancies
+        chartColor
+        chartBorderColor
+      }
+    }
+  }
+`;
+
+export const GET_LINE_CHART_LIST = gql`
+  query getLineChartList($dateRange: String!, $skills: [String]!) {
+    getLineChartList(dateRange: $dateRange, skills: $skills) {
+      rangeDate
+      jobData {
+        siteName
+        skillData {
+          label
+          data
+          borderColor
+        }
+      }
+    }
+  }
+`;
