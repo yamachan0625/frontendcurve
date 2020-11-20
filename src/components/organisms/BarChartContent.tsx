@@ -1,6 +1,5 @@
 import React from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
 import barChartMock from '~/mock/barChartMock.json';
