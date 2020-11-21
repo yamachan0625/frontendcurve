@@ -14,6 +14,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       paddingRight: theme.spacing(1),
       color: theme.palette.primary.contrastText,
     },
+    iconStyle: {
+      transform: 'rotate(90deg)',
+    },
     ListItemRoot: {
       '&:hover': {
         background: theme.palette.primary.main,
