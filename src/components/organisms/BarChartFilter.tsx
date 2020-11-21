@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 
 import { FilterMenu } from '~/components/organisms/common/FilterMenu';
-import { BarChartFilterMenu } from '~/components/molecules/BarChartFilterMenu';
+import { BarChartFilterMenu } from '~/components/molecules/barChart/BarChartFilterMenu';
 import { useAccordion } from '~/hooks/useAccordion';
 
 export const useBarChartFilter = () => {

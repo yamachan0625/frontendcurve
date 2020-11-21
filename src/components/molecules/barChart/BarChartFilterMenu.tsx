@@ -8,7 +8,7 @@ import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
-import { useStyles } from './ChartFilterMenuStyle';
+import { useStyles } from '../ChartFilterMenuStyle';
 
 const sortList = ['デフォルト', '降順', '昇順'] as const;
 
