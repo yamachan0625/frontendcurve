@@ -9,7 +9,7 @@ import { NextPage } from 'next';
 import { FilterMenu } from '~/components/organisms/common/FilterMenu';
 import { useProtectRoute } from '~/contexts/auth';
 import { MainTemplate } from '~/components/templates/MainTemplate';
-import { LineChartFilterMenu } from '~/components/molecules/LineChartFilterMenu';
+import { LineChartFilterMenu } from '~/components/molecules/lineChart/LineChartFilterMenu';
 
 const dummyLabel = [
   'Node.js',
