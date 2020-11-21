@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FilterMenu } from '~/components/organisms/common/FilterMenu';
-import { LineChartFilterMenu } from '~/components/molecules/LineChartFilterMenu';
+import { LineChartFilterMenu } from '~/components/molecules/lineChart/LineChartFilterMenu';
 import { useAccordion } from '~/hooks/useAccordion';
 
 export const useLineChartFilter = () => {

@@ -10,7 +10,7 @@ import {
 import { QueryLazyOptions } from '@apollo/client';
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
-import { useStyles } from './ChartFilterMenuStyle';
+import { useStyles } from '../ChartFilterMenuStyle';
 
 const skillOptionObj = {
   NodeJs: {
