@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chipRoot: {
+      fontSize: '12px',
       display: 'flex',
       flexWrap: 'wrap',
       '& > *': {

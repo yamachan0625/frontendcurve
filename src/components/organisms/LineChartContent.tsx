@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { Grid } from '@material-ui/core';
 
 import lineChartMock from '~/mock/lineChartMock.json';
+import { PlaceHolder } from '~/components/molecules/PlaceHolder';
 
 export type LineChartDataType = typeof lineChartMock;
 
@@ -13,7 +14,7 @@ type Props = {
 
 export const LineChartContent: React.FC<Props> = ({ loading, data }) => {
   const lineChart: JSX.Element | JSX.Element[] = (() => {
-    if (loading) return <p>Loading ...</p>;
+    if (loading) return <PlaceHolder />;
     if (data) {
       return data.getLineChartList.jobData.map((lineChartData, i) => {
         return (

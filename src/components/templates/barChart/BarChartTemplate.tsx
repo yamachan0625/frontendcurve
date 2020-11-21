@@ -8,43 +8,19 @@ import { BarChartFilter } from '~/components/organisms/BarChartFilter';
 export const useBarChart = () => {
   const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
 
-  // dataが変わるたびにuseEffectでsetMindateが走るのを制御するためのstate
-  const [beforeFirstRender, setBeforeFirstRender] = React.useState(false);
-
-  const [minDate, setMindate] = React.useState<null | Date>(null);
-
-  const callGetBarChartList = React.useCallback((date) => {
-    getBarChartList({
-      variables: { date: date, sortOrder: 'default' },
-    });
-  }, []);
-
-  React.useEffect(() => {
-    callGetBarChartList(new Date());
-  }, []);
-
-  React.useEffect(() => {
-    if (data && data.getBarChartList.minDate && !beforeFirstRender) {
-      setBeforeFirstRender(true);
-      /** datepickerのminDateをapiからもらった値で書き換え */
-      setMindate(new Date(data.getBarChartList.minDate));
-    }
-  }, [data]);
-
   return {
     getBarChartList,
     data,
     loading,
-    minDate,
   } as const;
 };
 
 export const BarChartTemplate = () => {
-  const { getBarChartList, data, loading, minDate } = useBarChart();
+  const { getBarChartList, data, loading } = useBarChart();
 
   return (
     <>
-      <BarChartFilter getBarChartList={getBarChartList} minDate={minDate} />
+      <BarChartFilter getBarChartList={getBarChartList} data={data} />
       <BarChartContent loading={loading} data={data} />
     </>
   );
