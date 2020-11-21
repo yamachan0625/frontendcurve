@@ -23,6 +23,7 @@ type Props = {
     link: string;
   }[];
   index: number;
+  isStyle?: boolean;
 };
 
 const wrapperStyles = {
@@ -44,6 +45,7 @@ export const DrawerItem: React.FC<Props> = ({
   link = '',
   items = [],
   index,
+  isStyle = false,
 }) => {
   const classes = useStyles();
   const [open, selectedIndex, handleListItemClick] = useSelectedIndex();
@@ -60,7 +62,7 @@ export const DrawerItem: React.FC<Props> = ({
       onClick={() => handleListItemClick(index)}
     >
       <ListItemIcon classes={{ root: classes.iconRoot }}>
-        <Icon />
+        <Icon className={isStyle ? classes.iconStyle : ''} />
       </ListItemIcon>
       <ListItemText
         primary={name}

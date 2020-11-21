@@ -36,6 +36,7 @@ const drawerItems = [
     name: 'BarChart',
     link: '/barChart',
     Icon: BarChartIcon,
+    isStyle: true,
   },
   {
     name: 'LineChart',
