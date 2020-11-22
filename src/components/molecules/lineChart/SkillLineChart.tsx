@@ -2,8 +2,9 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Grid } from '@material-ui/core';
 
-import type { LineChartDataType } from '~/components/organisms/LineChartContent';
+import LineChartMock from '~/mock/lineChartMock.json';
 
+type LineChartDataType = typeof LineChartMock;
 type Props = {
   data: LineChartDataType;
   chartSize:
