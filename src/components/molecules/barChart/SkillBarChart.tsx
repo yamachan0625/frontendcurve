@@ -7,12 +7,27 @@ import barChartMock from '~/mock/barChartMock.json';
 export type BarChartDataType = typeof barChartMock.getBarChartList.jobData;
 type Props = {
   data: typeof barChartMock.getBarChartList.jobData;
+  chartSize:
+    | boolean
+    | 'auto'
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12;
 };
 
-export const SkillBarChart: React.FC<Props> = ({ data }) => (
+export const SkillBarChart: React.FC<Props> = ({ data, chartSize }) => (
   <>
     {data.map((data, i) => (
-      <Grid item xs={12} md={6} key={i}>
+      <Grid item xs={12} md={chartSize} key={i}>
         <HorizontalBar
           data={{
             labels: data.skillName,

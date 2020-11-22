@@ -6,12 +6,27 @@ import type { LineChartDataType } from '~/components/organisms/LineChartContent'
 
 type Props = {
   data: LineChartDataType;
+  chartSize:
+    | boolean
+    | 'auto'
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12;
 };
 
-export const SkillLineChart: React.FC<Props> = ({ data }) => (
+export const SkillLineChart: React.FC<Props> = ({ data, chartSize }) => (
   <>
     {data.getLineChartList.jobData.map((lineChartData, i) => (
-      <Grid item xs={12} md={6} key={i}>
+      <Grid item xs={12} md={chartSize} key={i}>
         <Line
           data={{
             labels: data.getLineChartList.rangeDate,
