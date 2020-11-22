@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   placeHolder: {
     backgroundColor: theme.palette.primary.main,
     height: 'auto',
-    paddingTop: '65%',
+    paddingTop: '50%',
     position: 'relative',
     margin: '10px 0',
   },

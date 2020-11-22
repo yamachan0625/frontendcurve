@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { QueryLazyOptions } from '@apollo/client';
 import { FormControlLabel, Radio, RadioGroup, Button } from '@material-ui/core';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import dayjs from 'dayjs';
@@ -9,13 +8,11 @@ registerLocale('ja', ja);
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from '../ChartFilterMenuStyle';
+import { useBarChart } from '~/contexts/page/barChartStore';
 
 const sortList = ['デフォルト', '降順', '昇順'] as const;
 
 type Props = {
-  getBarChartList: (options?: QueryLazyOptions<Record<string, any>>) => void;
-  selectDate: Date;
-  setSelectDate: React.Dispatch<React.SetStateAction<Date>>;
   minDate: Date;
   maxDate: Date;
   toggleAccordion: () => void;
@@ -23,9 +20,6 @@ type Props = {
 };
 
 export const BarChartFilterMenu: React.FC<Props> = ({
-  getBarChartList,
-  selectDate,
-  setSelectDate,
   minDate,
   maxDate,
   toggleAccordion,
@@ -34,10 +28,20 @@ export const BarChartFilterMenu: React.FC<Props> = ({
   const classes = useStyles();
 
   const { register, handleSubmit, control } = useForm();
+  const {
+    getBarChartList,
+    selectDate,
+    callSetSelectDate,
+    callSetSortOrder,
+  } = useBarChart();
 
   const onSubmit = ({ date, sortOrder }) => {
-    getBarChartList({ variables: { date, sortOrder } });
+    getBarChartList({
+      variables: { date, sortOrder },
+    });
     setSelectedFilter([sortOrder, String(dayjs(date).format('YYYY/MM/DD'))]);
+    callSetSelectDate(date);
+    callSetSortOrder(sortOrder);
     toggleAccordion();
   };
 
@@ -70,7 +74,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
               className={classes.carenderStyle}
               locale="ja"
               selected={selectDate}
-              onChange={(date) => setSelectDate(date)}
+              onChange={(date) => callSetSelectDate(date)}
               dateFormat="yyyy/MM/dd"
               minDate={minDate}
               maxDate={maxDate}
