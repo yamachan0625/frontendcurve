@@ -13,6 +13,8 @@ import { positions, Provider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
 import { AuthProvider } from '~/contexts/auth';
+import { RootStoreProvider } from '~/contexts/rootStore';
+
 import '~/styles/reset.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import theme from '~/styles/theme';
@@ -64,10 +66,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={client}>
       <Provider template={AlertTemplate} {...options}>
         <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
+          <RootStoreProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </RootStoreProvider>
         </AuthProvider>
       </Provider>
     </ApolloProvider>
