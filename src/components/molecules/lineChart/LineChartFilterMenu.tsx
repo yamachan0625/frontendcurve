@@ -7,12 +7,12 @@ import {
   RadioGroup,
   Button,
 } from '@material-ui/core';
-import { QueryLazyOptions } from '@apollo/client';
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from '../ChartFilterMenuStyle';
+import { useLineChart } from '~/contexts/page/lineChartStore';
 
-const skillOptionObj = {
+export const skillOptionObj = {
   NodeJs: {
     name: 'Node.js',
     color: 'rgba(62, 134, 61, 1)',
@@ -101,7 +101,7 @@ const skillOptionObj = {
 } as const;
 
 const dateRangeList = ['1週間', '1ヶ月', '3ヶ月'] as const;
-export const skillNameList = [
+const skillNameList = [
   { label: 'React', name: 'React' },
   { label: 'Vue.js', name: 'VueJs' },
   { label: 'Angular', name: 'Angular' },
@@ -120,47 +120,58 @@ export const skillNameList = [
   { label: 'Webpack', name: 'Webpack' },
 ] as const;
 
-type SelectSkillType = {
-  React: boolean;
-  Angular: boolean;
-  VueJs: boolean;
-  NodeJs: boolean;
-  NextJs: boolean;
-  NuxtJs: boolean;
-  TypeScript: boolean;
-  JavaScript: boolean;
-  ReactNative: boolean;
-  Flutter: boolean;
-  Electron: boolean;
-  Graphql: boolean;
-  Redux: boolean;
-  VueX: boolean;
-  Jest: boolean;
-  Cypress: boolean;
-  Webpack: boolean;
+type Props = {
+  toggleAccordion: () => void;
+  setSelectedFilter: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-type Props = {
-  getLineChartList: (options?: QueryLazyOptions<Record<string, any>>) => void;
-  toggleAccordion: () => void;
-  selectSkill: SelectSkillType;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  setSelectedFilter: any;
+export const useLineChartFilterMemu = () => {
+  const [skillListOption, setSkillListOption] = React.useState({
+    React: true,
+    Angular: true,
+    VueJs: true,
+    NodeJs: false,
+    NextJs: false,
+    NuxtJs: false,
+    TypeScript: false,
+    JavaScript: false,
+    ReactNative: false,
+    Flutter: false,
+    Electron: false,
+    Graphql: false,
+    Redux: false,
+    VueX: false,
+    Jest: false,
+    Cypress: false,
+    Webpack: false,
+  });
+
+  // スキルリストのチェックボックスを変更
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSkillListOption({
+      ...skillListOption,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  return { skillListOption, handleChange };
 };
 
 export const LineChartFilterMenu: React.FC<Props> = ({
-  getLineChartList,
   toggleAccordion,
-  selectSkill,
-  handleChange,
   setSelectedFilter,
 }) => {
   const classes = useStyles();
-
   const { register, handleSubmit, control } = useForm();
+  const { skillListOption, handleChange } = useLineChartFilterMemu();
+  const {
+    getLineChartList,
+    callSetRangeDate,
+    callSetSelectedSkills,
+  } = useLineChart();
 
   const onSubmit = (data) => {
-    const dateRange = data.dateRange;
+    const dateRange: string = data.dateRange;
     const selectedSkills = Object.entries(data)
       .map((skills) => {
         if (skills[1] === true) {
@@ -174,6 +185,8 @@ export const LineChartFilterMenu: React.FC<Props> = ({
       dateRange,
       ...selectedSkills.map((skill) => skillOptionObj[skill].name),
     ]);
+    callSetRangeDate(dateRange);
+    callSetSelectedSkills(selectedSkills);
     toggleAccordion();
   };
 
@@ -206,7 +219,7 @@ export const LineChartFilterMenu: React.FC<Props> = ({
               control={
                 <Checkbox
                   inputRef={register}
-                  checked={selectSkill[item.name]}
+                  checked={skillListOption[item.name]}
                   name={item.name}
                   onChange={handleChange}
                 />

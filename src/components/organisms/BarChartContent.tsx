@@ -1,21 +1,67 @@
 import React from 'react';
-import { HorizontalBar } from 'react-chartjs-2';
 import { Grid } from '@material-ui/core';
 
 import barChartMock from '~/mock/barChartMock.json';
 import { PlaceHolder } from '~/components/molecules/PlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
+import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
+import { useRootStore } from '~/contexts/rootStore';
+import { useBarChart } from '~/contexts/page/barChartStore';
 
 export type BarChartDataType = typeof barChartMock;
 
-type Props = {
-  loading: boolean;
-  data: BarChartDataType;
-};
+export const BarChartContent: React.FC = () => {
+  const { chartDisplaySize, changeChartDisplaySize } = useRootStore();
+  const {
+    getBarChartList,
+    loading,
+    data,
+    selectDate,
+    sortOrder,
+    now,
+    callSetMinDate,
+  } = useBarChart();
 
-export const BarChartContent: React.FC<Props> = ({ loading, data }) => (
-  <Grid container spacing={0}>
-    {loading && <PlaceHolder />}
-    {data && <SkillBarChart data={data.getBarChartList.jobData} />}
-  </Grid>
-);
+  // dataが変わるたびにuseEffectでsetMindateが走るのを制御するためのstate
+  const [beforeFirstRender, setBeforeFirstRender] = React.useState(false);
+
+  React.useEffect(() => {
+    getBarChartList({
+      variables: { date: now, sortOrder: 'default' },
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (data && data.getBarChartList.minDate && !beforeFirstRender) {
+      setBeforeFirstRender(true);
+
+      /** datepickerのminDateをapiからもらった値で書き換え */
+      callSetMinDate(new Date(data.getBarChartList.minDate));
+    }
+  }, [data]);
+
+  const switchChartDisplaySize = (size: number) => {
+    changeChartDisplaySize(size);
+    getBarChartList({
+      variables: { date: selectDate, sortOrder },
+    });
+  };
+
+  return (
+    <>
+      <ChartDisplaySizeSwitcher
+        switchChartDisplaySize={switchChartDisplaySize}
+        chartDisplaySize={chartDisplaySize}
+      />
+      <Grid container spacing={0}>
+        {loading && <PlaceHolder />}
+        {data && (
+          <SkillBarChart
+            data={data.getBarChartList.jobData}
+            chartSize={chartDisplaySize}
+          />
+        )}
+      </Grid>
+    </>
+  );
+};
