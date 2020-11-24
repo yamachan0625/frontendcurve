@@ -202,7 +202,7 @@ export const LineChartFilterMenu: React.FC<Props> = ({
                   <FormControlLabel
                     key={item}
                     value={item}
-                    control={<Radio />}
+                    control={<Radio color="default" />}
                     label={item}
                   />
                 ))}
@@ -222,6 +222,7 @@ export const LineChartFilterMenu: React.FC<Props> = ({
                   checked={skillListOption[item.name]}
                   name={item.name}
                   onChange={handleChange}
+                  color="default"
                 />
               }
               key={item.label}

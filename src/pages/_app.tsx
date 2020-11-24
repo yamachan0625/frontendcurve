@@ -1,8 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppProps /**AppContext  */ } from 'next/app';
-import { setContext } from '@apollo/client/link/context';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import {
   ApolloClient,
   InMemoryCache,
@@ -17,7 +14,8 @@ import { RootStoreProvider } from '~/contexts/rootStore';
 
 import '~/styles/reset.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import theme from '~/styles/theme';
+import { ThemeContext } from '~/contexts/theme';
+import { ThemeContextProvider } from '~/contexts/theme';
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -62,15 +60,15 @@ const options = {
  */
 const MyApp = ({ Component, pageProps }: AppProps) => {
   // const client = createApolloClient();
+
   return (
     <ApolloProvider client={client}>
       <Provider template={AlertTemplate} {...options}>
         <AuthProvider>
           <RootStoreProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
+            <ThemeContextProvider>
               <Component {...pageProps} />
-            </ThemeProvider>
+            </ThemeContextProvider>
           </RootStoreProvider>
         </AuthProvider>
       </Provider>

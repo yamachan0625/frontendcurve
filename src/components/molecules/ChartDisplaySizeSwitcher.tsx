@@ -3,6 +3,7 @@ import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import Hidden from '@material-ui/core/Hidden';
 
+import { useTheme } from '~/contexts/theme';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) =>
@@ -46,6 +47,7 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
   chartDisplaySize,
 }) => {
   const classes = useStyles();
+  const { theme } = useTheme();
 
   React.useEffect(() => {
     switchChartDisplaySize(
@@ -61,7 +63,10 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
             chartDisplaySize === 12 ? () => switchChartDisplaySize(6) : () => {}
           }
           style={{
-            color: chartDisplaySize === 6 ? '#fff' : 'rgba(255,255,255, 0.3)',
+            color:
+              chartDisplaySize === 6
+                ? theme.palette.primary.dark
+                : theme.palette.primary.contrastText,
             cursor: chartDisplaySize === 12 && 'pointer',
           }}
           fontSize="large"
@@ -73,7 +78,10 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
             chartDisplaySize === 6 ? () => switchChartDisplaySize(12) : () => {}
           }
           style={{
-            color: chartDisplaySize === 12 ? '#fff' : 'rgba(255,255,255, 0.3)',
+            color:
+              chartDisplaySize === 12
+                ? theme.palette.primary.dark
+                : theme.palette.primary.contrastText,
             cursor: chartDisplaySize === 6 && 'pointer',
           }}
           fontSize="large"

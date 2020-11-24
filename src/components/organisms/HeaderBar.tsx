@@ -10,6 +10,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { HeadericonButton } from '~/components/atoms/HeaderIconButton';
 import { HeaderDesktopMenu } from '~/components/molecules/HeaderDesktopMenu';
 import { HeaderMobileMenu } from '~/components/molecules/HeaderMobileMenu';
+import { SwitchTheme } from '~/components/molecules/SwitchTheme';
 import { useAnchorEl } from '~/hooks/useAnchorEl';
 import { useStyles } from './HeaderBarStyle';
 
@@ -34,6 +35,7 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
     <>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+          {/* ハンバーガーメニューのボタン */}
           <HeadericonButton
             label="open drawer"
             onClick={handleDrawerToggle}
@@ -41,6 +43,9 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
           >
             <MenuIcon />
           </HeadericonButton>
+
+          <SwitchTheme />
+          {/* --PCのヘッダーここから-- */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <HeadericonButton
@@ -59,11 +64,15 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
               <AccountCircle />
             </HeadericonButton>
           </div>
+          {/* --PCのヘッダーここまで-- */}
+
+          {/* --モバイルのヘッダーここから-- */}
           <div className={classes.sectionMobile}>
             <HeadericonButton label="show more" onClick={handleMobileMenuOpen}>
               <MoreIcon />
             </HeadericonButton>
           </div>
+          {/* --モバイルのヘッダーここまで-- */}
         </Toolbar>
       </AppBar>
       <HeaderMobileMenu

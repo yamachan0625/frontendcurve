@@ -17,8 +17,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     carenderStyle: {
       borderRadius: '4px',
-      // boxShadow: 'inset 0 2px 2px #e9e9e9',
-      border: `1px solid ${theme.palette.primary.light}`,
+      boxShadow: `inset 0 2px 2px ${theme.palette.primary.dark}`,
+      border: `1px solid ${theme.palette.primary.dark}`,
       padding: '2px 5px',
     },
   })

@@ -22,9 +22,7 @@ export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
       {/* @ts-ignore */}
       <AccordionSummary
         ref={ref}
-        expandIcon={
-          <ExpandMoreIcon className={classes.filterIcon} fontSize="large" />
-        }
+        expandIcon={<ExpandMoreIcon fontSize="large" />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
