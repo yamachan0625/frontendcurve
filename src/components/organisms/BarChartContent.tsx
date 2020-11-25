@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 
 import barChartMock from '~/mock/barChartMock.json';
-import { PlaceHolder } from '~/components/molecules/PlaceHolder';
+import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
 import { useRootStore } from '~/contexts/rootStore';

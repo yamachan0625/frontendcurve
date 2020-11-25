@@ -6,7 +6,7 @@ import { AuthWrapper } from '~/components/organisms/auth/index';
 import { useChangeSign } from '~/hooks/useChangeSign';
 
 const AuthTemplate: React.FC = () => {
-  const [isLogin, changeSign] = useChangeSign();
+  const { isLogin, changeSign } = useChangeSign();
 
   return (
     <>

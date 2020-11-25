@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { PlaceHolder } from '~/components/molecules/PlaceHolder';
+import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillLineChart } from '~/components/molecules/lineChart/SkillLineChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
 import { useRootStore } from '~/contexts/rootStore';

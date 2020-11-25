@@ -30,7 +30,7 @@ export const AuthWrapper: React.FC<Props> = ({
       <div className={classes.title}>{title}</div>
       <AuthForm type={type} dataKey={dataKey} buttonText={buttonText} />
       <div className={classes.sepalater}>{sepalateText}</div>
-      <AuthButton color="inherit" type="button" onClick={onClick}>
+      <AuthButton color="default" type="button" onClick={onClick}>
         {children}
       </AuthButton>
     </div>

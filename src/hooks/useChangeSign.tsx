@@ -10,5 +10,5 @@ export const useChangeSign = () => {
     [isLogin]
   );
 
-  return [isLogin, changeSign] as const;
+  return { isLogin, changeSign } as const;
 };
