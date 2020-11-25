@@ -70,7 +70,7 @@ export const SideBar: React.FC<Props> = ({
         >
           <List>
             <div className={classes.toolbar} />
-            <Divider classes={{ root: classes.DividerRoot }} />
+            <Divider />
             {drawerItems.map((item, i) => {
               return <DrawerItem {...item} index={i} key={i} />;
             })}
@@ -88,7 +88,7 @@ export const SideBar: React.FC<Props> = ({
         >
           <List>
             <div className={classes.toolbar} />
-            <Divider classes={{ root: classes.DividerRoot }} />
+            <Divider />
             {drawerItems.map((item, i) => {
               return <DrawerItem {...item} index={i} key={i} />;
             })}

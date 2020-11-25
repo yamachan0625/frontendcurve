@@ -18,7 +18,6 @@ export const DrawerItemChildren: React.FC<Props> = ({ name, link }) => {
     <Link href={link}>
       <ListItem
         classes={{
-          selected: classes.ListItemSelected,
           root: classes.ListItemRootChild,
         }}
         button

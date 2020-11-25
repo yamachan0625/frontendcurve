@@ -16,8 +16,5 @@ export const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.primary.dark,
       padding: '0 10px',
     },
-    DividerRoot: {
-      backgroundColor: '#FFFFFF',
-    },
   })
 );

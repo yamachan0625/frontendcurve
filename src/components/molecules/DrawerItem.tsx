@@ -26,19 +26,6 @@ type Props = {
   isStyle?: boolean;
 };
 
-const wrapperStyles = {
-  parent: {
-    backgroundColor: 'yellow',
-    '&:hover $child': {
-      color: 'red',
-    },
-  },
-  child: {
-    fontSize: '2em',
-    padding: 24,
-  },
-};
-
 export const DrawerItem: React.FC<Props> = ({
   name,
   Icon,
@@ -53,10 +40,6 @@ export const DrawerItem: React.FC<Props> = ({
 
   const DrawerItemRoot = (
     <ListItem
-      classes={{
-        selected: classes.ListItemSelected,
-        root: classes.ListItemRoot,
-      }}
       button
       component={link === '' ? 'div' : 'a'}
       onClick={() => handleListItemClick(index)}

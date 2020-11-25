@@ -57,7 +57,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
                   <FormControlLabel
                     key={item}
                     value={item}
-                    control={<Radio />}
+                    control={<Radio color="default" />}
                     label={item}
                   />
                 ))}

@@ -12,25 +12,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     iconRoot: {
       minWidth: '0px',
       paddingRight: theme.spacing(1),
-      color: theme.palette.primary.contrastText,
     },
     iconStyle: {
       transform: 'rotate(90deg)',
     },
-    ListItemRoot: {
-      '&:hover': {
-        background: theme.palette.primary.main,
-      },
-    },
     ListItemTextRoot: {
       fontSize: theme.spacing(2),
-      color: theme.palette.primary.contrastText,
-    },
-    ListItemSelected: {
-      backgroundColor: `${theme.palette.primary.main} !important`,
-    },
-    DividerRoot: {
-      backgroundColor: '#FFFFFF',
     },
   })
 );
