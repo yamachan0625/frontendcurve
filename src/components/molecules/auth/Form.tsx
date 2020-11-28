@@ -45,7 +45,7 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
       const authType = dataKey === 'login' ? 'ログイン' : '新規登録';
       showAleartMessage(`${authType}しました`);
 
-      await router.push('/');
+      await router.push('/barChart');
     } catch (error) {
       showAleartMessage(error.message, 'error');
     }
