@@ -28,4 +28,8 @@ module.exports = {
       },
     ];
   },
+  async redirects() {
+    // 一時的にindexページをbarChartページに設定する
+    return [{ source: '/', destination: '/barChart', permanent: true }];
+  },
 };
