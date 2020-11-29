@@ -5,13 +5,16 @@ import barChartMock from '~/mock/barChartMock.json';
 import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
-import { useRootStore } from '~/contexts/rootStore';
+import { useChartDisplaySizeContext } from '~/contexts/chartDisplaySize';
 import { useBarChart } from '~/contexts/page/barChartStore';
 
 export type BarChartDataType = typeof barChartMock;
 
 export const BarChartContent: React.FC = () => {
-  const { chartDisplaySize, changeChartDisplaySize } = useRootStore();
+  const {
+    chartDisplaySize,
+    changeChartDisplaySize,
+  } = useChartDisplaySizeContext();
   const {
     getBarChartList,
     loading,

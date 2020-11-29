@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-const RootStoreContext = createContext({
+const ChartDisplaySizeContext = createContext({
   chartDisplaySize: 6 as
     | boolean
     | 'auto'
@@ -19,7 +19,7 @@ const RootStoreContext = createContext({
   changeChartDisplaySize: (size: number) => {},
 });
 
-export const RootStoreProvider = ({ children }) => {
+export const ChartDisplaySizeProvider = ({ children }) => {
   const [chartDisplaySize, setChartDisplaySize] = React.useState(6 as 6 | 12);
 
   /** チャートの分割数はlocalStorageにて管理する */
@@ -29,18 +29,18 @@ export const RootStoreProvider = ({ children }) => {
   };
 
   return (
-    <RootStoreContext.Provider
+    <ChartDisplaySizeContext.Provider
       value={{
         chartDisplaySize,
         changeChartDisplaySize,
       }}
     >
       {children}
-    </RootStoreContext.Provider>
+    </ChartDisplaySizeContext.Provider>
   );
 };
 
-export const useRootStore = () => {
-  const context = useContext(RootStoreContext);
+export const useChartDisplaySizeContext = () => {
+  const context = useContext(ChartDisplaySizeContext);
   return context;
 };
