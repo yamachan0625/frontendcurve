@@ -6,41 +6,37 @@ import dayjs from 'dayjs';
 import ja from 'date-fns/locale/ja';
 registerLocale('ja', ja);
 
+import { chartMaxDate } from '~/helpers/date';
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from '../ChartFilterMenuStyle';
-import { useBarChart } from '~/contexts/page/barChartStore';
+import { useMinDate } from '~/contexts/page/barChart/minDate';
+import { useSelectDatepicker } from '~/contexts/page/barChart/selectDatepicker';
+import { useSortOrder } from '~/contexts/page/barChart/sortOrder';
+import { useBarChartData } from '~/contexts/page/barChart/barChartData';
 
 const sortList = ['デフォルト', '降順', '昇順'] as const;
 
 type Props = {
-  minDate: Date;
-  maxDate: Date;
   toggleAccordion: () => void;
-  setSelectedFilter: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedFilter: (selectedFilter: string[]) => void;
 };
 
 export const BarChartFilterMenu: React.FC<Props> = ({
-  minDate,
-  maxDate,
   toggleAccordion,
   setSelectedFilter,
 }) => {
   const classes = useStyles();
-
   const { register, handleSubmit, control } = useForm();
-  const {
-    getBarChartList,
-    selectDate,
-    callSetSelectDate,
-    callSetSortOrder,
-  } = useBarChart();
+  const { minDate } = useMinDate();
+  const { selectDate, callSetSelectDate } = useSelectDatepicker();
+  const { callSetSortOrder } = useSortOrder();
+  const { getBarChartList } = useBarChartData();
 
   const onSubmit = ({ date, sortOrder }) => {
     getBarChartList({
       variables: { date, sortOrder },
     });
     setSelectedFilter([sortOrder, String(dayjs(date).format('YYYY/MM/DD'))]);
-    callSetSelectDate(date);
     callSetSortOrder(sortOrder);
     toggleAccordion();
   };
@@ -77,7 +73,7 @@ export const BarChartFilterMenu: React.FC<Props> = ({
               onChange={(date) => callSetSelectDate(date)}
               dateFormat="yyyy/MM/dd"
               minDate={minDate}
-              maxDate={maxDate}
+              maxDate={chartMaxDate()}
               placeholderText="日付を選択してください"
             />
             <input

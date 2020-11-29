@@ -7,7 +7,7 @@ export const ThemeContext = React.createContext({
   handleThemeChange: (themeName: 'LIGHT' | 'DARK') => {},
 });
 
-export const ThemeContextProvider = (props) => {
+export const ThemeContextProvider = (props: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState(lightTheme);
 
   const handleThemeChange = (themeType: 'LIGHT' | 'DARK') => {

@@ -10,7 +10,9 @@ import {
 
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 import { useStyles } from '../ChartFilterMenuStyle';
-import { useLineChart } from '~/contexts/page/lineChartStore';
+import { useLineChartData } from '~/contexts/page/lineChart/lineChartData';
+import { useSelectSkill } from '~/contexts/page/lineChart/selectSkill';
+import { useDateRange } from '~/contexts/page/lineChart/dateRange';
 
 export const skillOptionObj = {
   NodeJs: {
@@ -163,12 +165,10 @@ export const LineChartFilterMenu: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { register, handleSubmit, control } = useForm();
+  const { getLineChartList } = useLineChartData();
   const { skillListOption, handleChange } = useLineChartFilterMemu();
-  const {
-    getLineChartList,
-    callSetRangeDate,
-    callSetSelectedSkills,
-  } = useLineChart();
+  const { callSetSelectedSkills } = useSelectSkill();
+  const { callSetRangeDate } = useDateRange();
 
   const onSubmit = (data) => {
     const dateRange: string = data.dateRange;

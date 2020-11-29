@@ -19,7 +19,11 @@ const ChartDisplaySizeContext = createContext({
   changeChartDisplaySize: (size: number) => {},
 });
 
-export const ChartDisplaySizeProvider = ({ children }) => {
+export const ChartDisplaySizeProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [chartDisplaySize, setChartDisplaySize] = React.useState(6 as 6 | 12);
 
   /** チャートの分割数はlocalStorageにて管理する */
@@ -40,7 +44,7 @@ export const ChartDisplaySizeProvider = ({ children }) => {
   );
 };
 
-export const useChartDisplaySizeContext = () => {
+export const useChartDisplaySize = () => {
   const context = useContext(ChartDisplaySizeContext);
   return context;
 };

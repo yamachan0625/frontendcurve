@@ -4,50 +4,19 @@ import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import Hidden from '@material-ui/core/Hidden';
 
 import { useTheme } from '~/contexts/theme';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    swither: {
-      display: 'inline-flex',
-      paddingTop: '10px',
-      float: 'right',
-    },
-    icon: {
-      transform: 'rotate(90deg)',
-      margin: '0 10px',
-    },
-    separator: {
-      borderRight: `1px solid ${theme.palette.primary.contrastText}`,
-    },
-  })
-);
+import { useStyles } from './ChartDisplaySizeSwitcherStyle';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 
 type Props = {
   switchChartDisplaySize: (size: number) => void;
-  chartDisplaySize:
-    | boolean
-    | 'auto'
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12;
 };
 
 export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
   switchChartDisplaySize,
-  chartDisplaySize,
 }) => {
   const classes = useStyles();
   const { theme } = useTheme();
+  const { chartDisplaySize } = useChartDisplaySize();
 
   React.useEffect(() => {
     switchChartDisplaySize(

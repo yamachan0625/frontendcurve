@@ -24,7 +24,7 @@ export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
         ref={ref}
         expandIcon={<ExpandMoreIcon fontSize="large" />}
         aria-controls="panel1a-content"
-        id="panel1a-header"
+        id="filter-header"
       >
         <Typography component={'div'}>
           <div className={classes.filterTitle}>

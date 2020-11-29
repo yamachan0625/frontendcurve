@@ -2,12 +2,12 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { useChartDisplaySizeContext } from '~/contexts/chartDisplaySize';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 import { useStyles } from '~/components/molecules/PlaceHolderStyle';
 
 export const PlaceHolder: React.FC = () => {
   const classes = useStyles();
-  const { chartDisplaySize } = useChartDisplaySizeContext();
+  const { chartDisplaySize } = useChartDisplaySize();
 
   return (
     <>

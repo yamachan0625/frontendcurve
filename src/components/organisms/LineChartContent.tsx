@@ -4,21 +4,16 @@ import { Grid } from '@material-ui/core';
 import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillLineChart } from '~/components/molecules/lineChart/SkillLineChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
-import { useChartDisplaySizeContext } from '~/contexts/chartDisplaySize';
-import { useLineChart } from '~/contexts/page/lineChartStore';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
+import { useLineChartData } from '~/contexts/page/lineChart/lineChartData';
+import { useDateRange } from '~/contexts/page/lineChart/dateRange';
+import { useSelectSkill } from '~/contexts/page/lineChart/selectSkill';
 
 export const LineChartContent: React.FC = () => {
-  const {
-    chartDisplaySize,
-    changeChartDisplaySize,
-  } = useChartDisplaySizeContext();
-  const {
-    getLineChartList,
-    loading,
-    data,
-    selectedDateRange,
-    selectedSkills,
-  } = useLineChart();
+  const { changeChartDisplaySize } = useChartDisplaySize();
+  const { getLineChartList, loading, data } = useLineChartData();
+  const { selectedSkills } = useSelectSkill();
+  const { selectedDateRange } = useDateRange();
 
   React.useEffect(() => {
     getLineChartList({
@@ -37,11 +32,10 @@ export const LineChartContent: React.FC = () => {
     <>
       <ChartDisplaySizeSwitcher
         switchChartDisplaySize={switchChartDisplaySize}
-        chartDisplaySize={chartDisplaySize}
       />
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         {loading && <PlaceHolder />}
-        {data && <SkillLineChart data={data} chartSize={chartDisplaySize} />}
+        {data && <SkillLineChart data={data} />}
       </Grid>
     </>
   );

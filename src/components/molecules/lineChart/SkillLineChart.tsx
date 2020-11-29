@@ -4,34 +4,21 @@ import { Grid } from '@material-ui/core';
 
 import LineChartMock from '~/mock/lineChartMock.json';
 import { useTheme } from '~/contexts/theme';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 
 type LineChartDataType = typeof LineChartMock;
 type Props = {
   data: LineChartDataType;
-  chartSize:
-    | boolean
-    | 'auto'
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12;
 };
 
 export const SkillLineChart: React.FC<Props> = ({ data, chartSize }) => {
   const { theme } = useTheme();
+  const { chartDisplaySize } = useChartDisplaySize();
 
   return (
     <>
       {data.getLineChartList.jobData.map((lineChartData, i) => (
-        <Grid item xs={12} md={chartSize} key={i}>
+        <Grid item xs={12} md={chartDisplaySize} key={i}>
           <Line
             data={{
               labels: data.getLineChartList.rangeDate,

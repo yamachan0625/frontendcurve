@@ -1,8 +1,8 @@
 import { AuthProvider } from '~/contexts/auth';
 import { ChartDisplaySizeProvider } from '~/contexts/chartDisplaySize';
 import { ThemeContextProvider } from '~/contexts/theme';
-import { BarChartProvider } from '~/contexts/page/barChartStore';
-import { LineChartProvider } from '~/contexts/page/lineChartStore';
+import { BarChartProvider } from './page/barChart/index';
+import { LineChartProvider } from './page/lineChart/index';
 
 export const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (

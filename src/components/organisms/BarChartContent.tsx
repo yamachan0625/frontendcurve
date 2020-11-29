@@ -5,32 +5,28 @@ import barChartMock from '~/mock/barChartMock.json';
 import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
-import { useChartDisplaySizeContext } from '~/contexts/chartDisplaySize';
-import { useBarChart } from '~/contexts/page/barChartStore';
+import { chartMaxDate } from '~/helpers/date';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
+import { useMinDate } from '~/contexts/page/barChart/minDate';
+import { useBarChartData } from '~/contexts/page/barChart/barChartData';
+import { useSelectDatepicker } from '~/contexts/page/barChart/selectDatepicker';
+import { useSortOrder } from '~/contexts/page/barChart/sortOrder';
 
 export type BarChartDataType = typeof barChartMock;
 
 export const BarChartContent: React.FC = () => {
-  const {
-    chartDisplaySize,
-    changeChartDisplaySize,
-  } = useChartDisplaySizeContext();
-  const {
-    getBarChartList,
-    loading,
-    data,
-    selectDate,
-    sortOrder,
-    now,
-    callSetMinDate,
-  } = useBarChart();
+  const { changeChartDisplaySize } = useChartDisplaySize();
+  const { callSetMinDate } = useMinDate();
+  const { getBarChartList, loading, data } = useBarChartData();
+  const { selectDate } = useSelectDatepicker();
+  const { sortOrder } = useSortOrder();
 
   // dataが変わるたびにuseEffectでsetMindateが走るのを制御するためのstate
   const [beforeFirstRender, setBeforeFirstRender] = React.useState(false);
 
   React.useEffect(() => {
     getBarChartList({
-      variables: { date: now, sortOrder: 'default' },
+      variables: { date: chartMaxDate(), sortOrder: 'default' },
     });
   }, []);
 
@@ -43,27 +39,24 @@ export const BarChartContent: React.FC = () => {
     }
   }, [data]);
 
-  const switchChartDisplaySize = (size: number) => {
-    changeChartDisplaySize(size);
-    getBarChartList({
-      variables: { date: selectDate, sortOrder },
-    });
-  };
+  const switchChartDisplaySize = React.useCallback(
+    (size: number) => {
+      changeChartDisplaySize(size);
+      getBarChartList({
+        variables: { date: selectDate, sortOrder },
+      });
+    },
+    [changeChartDisplaySize, getBarChartList, selectDate, sortOrder]
+  );
 
   return (
     <>
       <ChartDisplaySizeSwitcher
         switchChartDisplaySize={switchChartDisplaySize}
-        chartDisplaySize={chartDisplaySize}
       />
       <Grid container spacing={0}>
         {loading && <PlaceHolder />}
-        {data && (
-          <SkillBarChart
-            data={data.getBarChartList.jobData}
-            chartSize={chartDisplaySize}
-          />
-        )}
+        {data && <SkillBarChart data={data.getBarChartList.jobData} />}
       </Grid>
     </>
   );

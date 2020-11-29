@@ -4,34 +4,21 @@ import { Grid } from '@material-ui/core';
 
 import barChartMock from '~/mock/barChartMock.json';
 import { useTheme } from '~/contexts/theme';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 
 export type BarChartDataType = typeof barChartMock.getBarChartList.jobData;
 type Props = {
   data: typeof barChartMock.getBarChartList.jobData;
-  chartSize:
-    | boolean
-    | 'auto'
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12;
 };
 
-export const SkillBarChart: React.FC<Props> = ({ data, chartSize }) => {
+export const SkillBarChart: React.FC<Props> = ({ data }) => {
   const { theme } = useTheme();
+  const { chartDisplaySize } = useChartDisplaySize();
 
   return (
     <>
       {data.map((data, i) => (
-        <Grid item xs={12} md={chartSize} key={i}>
+        <Grid item xs={12} md={chartDisplaySize} key={i}>
           <HorizontalBar
             data={{
               labels: data.skillName,
