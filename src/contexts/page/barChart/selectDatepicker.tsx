@@ -1,4 +1,7 @@
 import React, { createContext, useContext } from 'react';
+import dayjs from 'dayjs';
+
+import { chartMaxDate } from '~/helpers/date';
 
 const SelectDatepickerContext = createContext({
   selectDate: new Date(),
@@ -10,10 +13,7 @@ export const SelectDatepickerProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const now = new Date();
-  // スクレイピングが午前3時に行われるため午前4時に日付が変わるように変更
-  now.setHours(now.getHours() - 4);
-  const [selectDate, setSelectDate] = React.useState(now);
+  const [selectDate, setSelectDate] = React.useState(chartMaxDate());
 
   const callSetSelectDate = (date: Date) => {
     // エラーになるためここで日付型に変更する

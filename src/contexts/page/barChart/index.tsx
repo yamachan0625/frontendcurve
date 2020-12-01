@@ -2,7 +2,6 @@ import { BarChartDatatProvider } from './barChartData';
 import { SelectDatepickerProvider } from './selectDatepicker';
 import { MinDatetProvider } from './minDate';
 import { SortOrderProvider } from './sortOrder';
-import { BarChartSelectedFilterProvider } from './barChartSelectedFilter';
 
 export const BarChartProvider = ({
   children,
@@ -13,11 +12,7 @@ export const BarChartProvider = ({
     <BarChartDatatProvider>
       <SelectDatepickerProvider>
         <MinDatetProvider>
-          <SortOrderProvider>
-            <BarChartSelectedFilterProvider>
-              {children}
-            </BarChartSelectedFilterProvider>
-          </SortOrderProvider>
+          <SortOrderProvider>{children}</SortOrderProvider>
         </MinDatetProvider>
       </SelectDatepickerProvider>
     </BarChartDatatProvider>

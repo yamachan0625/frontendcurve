@@ -11,69 +11,128 @@ type Props = {
   data: typeof barChartMock.getBarChartList.jobData;
 };
 
-export const SkillBarChart: React.FC<Props> = ({ data }) => {
+export const SkillBarChart: React.FC<Props> = React.memo(({ data }) => {
   const { theme } = useTheme();
   const { chartDisplaySize } = useChartDisplaySize();
 
   return (
     <>
-      {data.map((data, i) => (
-        <Grid item xs={12} md={chartDisplaySize} key={i}>
-          <HorizontalBar
-            data={{
-              labels: data.skillName,
-              datasets: [
-                {
-                  label: '求人数',
-                  backgroundColor: data.chartColor,
-                  data: data.jobVacancies,
-                  borderColor: data.chartBorderColor,
-                  borderWidth: 1,
+      {chartDisplaySize === 6 &&
+        data.map((data, i) => (
+          <Grid item xs={12} md={chartDisplaySize} key={i}>
+            <HorizontalBar
+              data={{
+                labels: data.skillName,
+                datasets: [
+                  {
+                    label: '求人数',
+                    backgroundColor: data.chartColor,
+                    data: data.jobVacancies,
+                    borderColor: data.chartBorderColor,
+                    borderWidth: 1,
+                  },
+                ],
+              }}
+              options={{
+                legend: { display: false },
+                title: {
+                  display: true,
+                  text: data.siteName,
+                  fontColor: theme.palette.primary.contrastText,
                 },
-              ],
-            }}
-            options={{
-              legend: { display: false },
-              title: {
-                display: true,
-                text: data.siteName,
-                fontColor: theme.palette.primary.contrastText,
-              },
-              scales: {
-                xAxes: [
+                scales: {
+                  xAxes: [
+                    {
+                      scaleLabel: {
+                        // 軸ラベル
+                        display: true, // 表示設定
+                        labelString: '求人数', // ラベル
+                        fontColor: theme.palette.primary.contrastText, // 文字の色
+                      },
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                  yAxes: [
+                    {
+                      scaleLabel: {
+                        // 軸ラベル
+                        display: true, // 表示設定
+                        fontColor: theme.palette.primary.contrastText, // 文字の色
+                      },
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              }}
+            ></HorizontalBar>
+          </Grid>
+        ))}
+      {chartDisplaySize === 12 &&
+        data.map((data, i) => (
+          <Grid item xs={12} md={chartDisplaySize} key={i}>
+            <HorizontalBar
+              data={{
+                labels: data.skillName,
+                datasets: [
                   {
-                    scaleLabel: {
-                      // 軸ラベル
-                      display: true, // 表示設定
-                      labelString: '求人数', // ラベル
-                      fontColor: theme.palette.primary.contrastText, // 文字の色
-                    },
-                    ticks: {
-                      // 目盛り
-                      fontColor: theme.palette.primary.contrastText, // 目盛りの色
-                      beginAtZero: true,
-                    },
+                    label: '求人数',
+                    backgroundColor: data.chartColor,
+                    data: data.jobVacancies,
+                    borderColor: data.chartBorderColor,
+                    borderWidth: 1,
                   },
                 ],
-                yAxes: [
-                  {
-                    scaleLabel: {
-                      // 軸ラベル
-                      display: true, // 表示設定
-                      fontColor: theme.palette.primary.contrastText, // 文字の色
+              }}
+              options={{
+                legend: { display: false },
+                title: {
+                  display: true,
+                  text: data.siteName,
+                  fontColor: theme.palette.primary.contrastText,
+                },
+                scales: {
+                  xAxes: [
+                    {
+                      scaleLabel: {
+                        // 軸ラベル
+                        display: true, // 表示設定
+                        labelString: '求人数', // ラベル
+                        fontColor: theme.palette.primary.contrastText, // 文字の色
+                      },
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        beginAtZero: true,
+                      },
                     },
-                    ticks: {
-                      // 目盛り
-                      fontColor: theme.palette.primary.contrastText, // 目盛りの色
-                      beginAtZero: true,
+                  ],
+                  yAxes: [
+                    {
+                      scaleLabel: {
+                        // 軸ラベル
+                        display: true, // 表示設定
+                        fontColor: theme.palette.primary.contrastText, // 文字の色
+                      },
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        beginAtZero: true,
+                      },
                     },
-                  },
-                ],
-              },
-            }}
-          ></HorizontalBar>
-        </Grid>
-      ))}
+                  ],
+                },
+              }}
+            ></HorizontalBar>
+          </Grid>
+        ))}
     </>
   );
-};
+});

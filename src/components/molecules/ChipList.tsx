@@ -4,7 +4,7 @@ import { useStyles } from './ChipListStyle';
 
 type Props = { chipList: string[] };
 
-export const ChipList: React.FC<Props> = ({ chipList }) => {
+export const ChipList: React.FC<Props> = React.memo(({ chipList }) => {
   const classes = useStyles();
 
   return (
@@ -18,4 +18,4 @@ export const ChipList: React.FC<Props> = ({ chipList }) => {
       })}
     </ul>
   );
-};
+});

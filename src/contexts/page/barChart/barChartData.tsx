@@ -28,10 +28,7 @@ export const BarChartDatatProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [getBarChartList, { loading, data }] = useLazyQuery(
-    GET_BAR_CHART_LIST,
-    { fetchPolicy: 'no-cache' }
-  );
+  const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
 
   return (
     <BarChartDataContext.Provider

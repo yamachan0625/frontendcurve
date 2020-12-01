@@ -11,7 +11,7 @@ import { ChipList } from '~/components/molecules/ChipList';
 
 type Props = {
   ref: ((instance: unknown) => void) | React.MutableRefObject<unknown>;
-  selectedFilter: string[];
+  chipList: string[];
 };
 
 export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
@@ -31,7 +31,7 @@ export const FilterMenu: React.FC<Props> = React.forwardRef((props, ref) => {
             <FilterListIcon />
             <span className={classes.span}>絞り込み</span>
           </div>
-          <ChipList chipList={props.selectedFilter} />
+          <ChipList chipList={props.chipList} />
         </Typography>
       </AccordionSummary>
       <AccordionDetails>

@@ -11,49 +11,88 @@ type Props = {
   data: LineChartDataType;
 };
 
-export const SkillLineChart: React.FC<Props> = ({ data, chartSize }) => {
+export const SkillLineChart: React.FC<Props> = ({ data }) => {
   const { theme } = useTheme();
   const { chartDisplaySize } = useChartDisplaySize();
 
   return (
     <>
-      {data.getLineChartList.jobData.map((lineChartData, i) => (
-        <Grid item xs={12} md={chartDisplaySize} key={i}>
-          <Line
-            data={{
-              labels: data.getLineChartList.rangeDate,
-              datasets: JSON.parse(JSON.stringify(lineChartData.skillData)),
-            }}
-            options={{
-              title: {
-                display: true,
-                text: lineChartData.siteName,
-                fontColor: theme.palette.primary.contrastText,
-              },
-              scales: {
-                xAxes: [
-                  {
-                    ticks: {
-                      // 目盛り
-                      fontColor: theme.palette.primary.contrastText, // 目盛りの色
-                      // beginAtZero: true,
+      {chartDisplaySize === 6 &&
+        data.getLineChartList.jobData.map((lineChartData, i) => (
+          <Grid item xs={12} md={6} key={i}>
+            <Line
+              data={{
+                labels: data.getLineChartList.rangeDate,
+                datasets: JSON.parse(JSON.stringify(lineChartData.skillData)),
+              }}
+              options={{
+                title: {
+                  display: true,
+                  text: lineChartData.siteName,
+                  fontColor: theme.palette.primary.contrastText,
+                },
+                scales: {
+                  xAxes: [
+                    {
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        // beginAtZero: true,
+                      },
                     },
-                  },
-                ],
-                yAxes: [
-                  {
-                    ticks: {
-                      // 目盛り
-                      fontColor: theme.palette.primary.contrastText, // 目盛りの色
-                      // beginAtZero: true,
+                  ],
+                  yAxes: [
+                    {
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        // beginAtZero: true,
+                      },
                     },
-                  },
-                ],
-              },
-            }}
-          ></Line>
-        </Grid>
-      ))}
+                  ],
+                },
+              }}
+            ></Line>
+          </Grid>
+        ))}
+      {chartDisplaySize === 12 &&
+        data.getLineChartList.jobData.map((lineChartData, i) => (
+          <Grid item xs={12} md={12} key={i}>
+            <Line
+              data={{
+                labels: data.getLineChartList.rangeDate,
+                datasets: JSON.parse(JSON.stringify(lineChartData.skillData)),
+              }}
+              options={{
+                title: {
+                  display: true,
+                  text: lineChartData.siteName,
+                  fontColor: theme.palette.primary.contrastText,
+                },
+                scales: {
+                  xAxes: [
+                    {
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        // beginAtZero: true,
+                      },
+                    },
+                  ],
+                  yAxes: [
+                    {
+                      ticks: {
+                        // 目盛り
+                        fontColor: theme.palette.primary.contrastText, // 目盛りの色
+                        // beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
+              }}
+            ></Line>
+          </Grid>
+        ))}
     </>
   );
 };

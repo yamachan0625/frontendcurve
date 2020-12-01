@@ -26,10 +26,9 @@ const LineChartDataContext = createContext({
 });
 
 export const LineChartDatatProvider = ({ children }) => {
-  const [
-    getLineChartList,
-    { loading, data },
-  ] = useLazyQuery(GET_LINE_CHART_LIST, { fetchPolicy: 'no-cache' });
+  const [getLineChartList, { loading, data }] = useLazyQuery(
+    GET_LINE_CHART_LIST
+  );
 
   return (
     <LineChartDataContext.Provider

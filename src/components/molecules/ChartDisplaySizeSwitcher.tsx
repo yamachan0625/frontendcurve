@@ -7,19 +7,13 @@ import { useTheme } from '~/contexts/theme';
 import { useStyles } from './ChartDisplaySizeSwitcherStyle';
 import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 
-type Props = {
-  switchChartDisplaySize: (size: number) => void;
-};
-
-export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
-  switchChartDisplaySize,
-}) => {
+export const ChartDisplaySizeSwitcher: React.FC = React.memo(() => {
   const classes = useStyles();
   const { theme } = useTheme();
-  const { chartDisplaySize } = useChartDisplaySize();
+  const { chartDisplaySize, changeChartDisplaySize } = useChartDisplaySize();
 
   React.useEffect(() => {
-    switchChartDisplaySize(
+    changeChartDisplaySize(
       Number(window.localStorage.getItem('chartDisplaySize')) || 6
     );
   }, []);
@@ -29,7 +23,7 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
       <div className={classes.swither}>
         <ViewModuleIcon
           onClick={
-            chartDisplaySize === 12 ? () => switchChartDisplaySize(6) : () => {}
+            chartDisplaySize === 12 ? () => changeChartDisplaySize(6) : () => {}
           }
           style={{
             color:
@@ -44,7 +38,7 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
         <div className={classes.separator} />
         <ViewColumnIcon
           onClick={
-            chartDisplaySize === 6 ? () => switchChartDisplaySize(12) : () => {}
+            chartDisplaySize === 6 ? () => changeChartDisplaySize(12) : () => {}
           }
           style={{
             color:
@@ -59,4 +53,4 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
       </div>
     </Hidden>
   );
-};
+});

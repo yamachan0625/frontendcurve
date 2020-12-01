@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 
 const SelectSkillContext = createContext({
   selectedSkills: ['React', 'VueJs', 'Angular'],
-  callSetSelectedSkills: (skills) => {},
+  callSetSelectSkills: (skills) => {},
 });
 
 export const SelectSkillProvider = ({ children }) => {
@@ -12,7 +12,7 @@ export const SelectSkillProvider = ({ children }) => {
     'Angular',
   ]);
 
-  const callSetSelectedSkills = (skills: string[]) => {
+  const callSetSelectSkills = (skills: string[]) => {
     setSelectedSkills(skills);
   };
 
@@ -20,7 +20,7 @@ export const SelectSkillProvider = ({ children }) => {
     <SelectSkillContext.Provider
       value={{
         selectedSkills,
-        callSetSelectedSkills,
+        callSetSelectSkills,
       }}
     >
       {children}
