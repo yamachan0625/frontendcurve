@@ -37,7 +37,7 @@ export const BarChartContent: React.FC = React.memo(() => {
       <ChartDisplaySizeSwitcher />
       <Grid container spacing={0}>
         {loading && <PlaceHolder />}
-        {data && <SkillBarChart data={data.getBarChartList.jobData} />}
+        {data && <SkillBarChart jobData={data.getBarChartList.jobData} />}
       </Grid>
     </>
   );
