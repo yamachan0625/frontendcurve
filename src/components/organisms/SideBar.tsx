@@ -23,12 +23,8 @@ const drawerItems = [
     Icon: DashboardIcon,
     items: [
       {
-        name: 'レバテック',
-        link: '/example',
-      },
-      {
-        name: 'Green',
-        link: '/example',
+        name: 'Please wait...',
+        link: '',
       },
     ],
   },
