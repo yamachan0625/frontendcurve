@@ -1,67 +1,44 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import barChartMock from '~/mock/barChartMock.json';
 import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
-import { useRootStore } from '~/contexts/rootStore';
-import { useBarChart } from '~/contexts/page/barChartStore';
+import { useMinDate } from '~/contexts/page/barChart/minDate';
+import { useBarChartData } from '~/contexts/page/barChart/barChartData';
+import { useSelectDatepicker } from '~/contexts/page/barChart/selectDatepicker';
+import { useSortOrder } from '~/contexts/page/barChart/sortOrder';
 
-export type BarChartDataType = typeof barChartMock;
-
-export const BarChartContent: React.FC = () => {
-  const { chartDisplaySize, changeChartDisplaySize } = useRootStore();
-  const {
-    getBarChartList,
-    loading,
-    data,
-    selectDate,
-    sortOrder,
-    now,
-    callSetMinDate,
-  } = useBarChart();
+export const BarChartContent: React.FC = React.memo(() => {
+  const { callSetMinDate } = useMinDate();
+  const { getBarChartList, loading, data } = useBarChartData();
+  const { selectDate } = useSelectDatepicker();
+  const { sortOrder } = useSortOrder();
 
   // dataが変わるたびにuseEffectでsetMindateが走るのを制御するためのstate
   const [beforeFirstRender, setBeforeFirstRender] = React.useState(false);
 
   React.useEffect(() => {
     getBarChartList({
-      variables: { date: now, sortOrder: 'default' },
+      variables: { date: selectDate, sortOrder: sortOrder },
     });
   }, []);
 
   React.useEffect(() => {
     if (data && data.getBarChartList.minDate && !beforeFirstRender) {
       setBeforeFirstRender(true);
-
       /** datepickerのminDateをapiからもらった値で書き換え */
       callSetMinDate(new Date(data.getBarChartList.minDate));
     }
-  }, [data]);
-
-  const switchChartDisplaySize = (size: number) => {
-    changeChartDisplaySize(size);
-    getBarChartList({
-      variables: { date: selectDate, sortOrder },
-    });
-  };
+  }, []);
 
   return (
     <>
-      <ChartDisplaySizeSwitcher
-        switchChartDisplaySize={switchChartDisplaySize}
-        chartDisplaySize={chartDisplaySize}
-      />
+      <ChartDisplaySizeSwitcher />
       <Grid container spacing={0}>
         {loading && <PlaceHolder />}
-        {data && (
-          <SkillBarChart
-            data={data.getBarChartList.jobData}
-            chartSize={chartDisplaySize}
-          />
-        )}
+        {data && <SkillBarChart jobData={data.getBarChartList.jobData} />}
       </Grid>
     </>
   );
-};
+});

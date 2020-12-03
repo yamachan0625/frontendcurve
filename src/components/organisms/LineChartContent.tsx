@@ -4,42 +4,28 @@ import { Grid } from '@material-ui/core';
 import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillLineChart } from '~/components/molecules/lineChart/SkillLineChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
-import { useRootStore } from '~/contexts/rootStore';
-import { useLineChart } from '~/contexts/page/lineChartStore';
+import { useLineChartData } from '~/contexts/page/lineChart/lineChartData';
+import { useDateRange } from '~/contexts/page/lineChart/dateRange';
+import { useSelectSkill } from '~/contexts/page/lineChart/selectSkill';
 
-export const LineChartContent: React.FC = () => {
-  const { chartDisplaySize, changeChartDisplaySize } = useRootStore();
-  const {
-    getLineChartList,
-    loading,
-    data,
-    selectedDateRange,
-    selectedSkills,
-  } = useLineChart();
+export const LineChartContent: React.FC = React.memo(() => {
+  const { getLineChartList, loading, data } = useLineChartData();
+  const { selectedSkills } = useSelectSkill();
+  const { selectedDateRange } = useDateRange();
 
   React.useEffect(() => {
     getLineChartList({
-      variables: { dateRange: '1週間', skills: ['React', 'Angular', 'VueJs'] },
+      variables: { dateRange: selectedDateRange, skills: selectedSkills },
     });
   }, []);
 
-  const switchChartDisplaySize = (size: number) => {
-    changeChartDisplaySize(size);
-    getLineChartList({
-      variables: { dateRange: selectedDateRange, skills: selectedSkills },
-    });
-  };
-
   return (
     <>
-      <ChartDisplaySizeSwitcher
-        switchChartDisplaySize={switchChartDisplaySize}
-        chartDisplaySize={chartDisplaySize}
-      />
-      <Grid container spacing={1}>
+      <ChartDisplaySizeSwitcher />
+      <Grid container spacing={0}>
         {loading && <PlaceHolder />}
-        {data && <SkillLineChart data={data} chartSize={chartDisplaySize} />}
+        {data && <SkillLineChart data={data} />}
       </Grid>
     </>
   );
-};
+});

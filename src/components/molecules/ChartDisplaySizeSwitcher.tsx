@@ -4,53 +4,16 @@ import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import Hidden from '@material-ui/core/Hidden';
 
 import { useTheme } from '~/contexts/theme';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useStyles } from './ChartDisplaySizeSwitcherStyle';
+import { useChartDisplaySize } from '~/contexts/chartDisplaySize';
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    swither: {
-      display: 'inline-flex',
-      paddingTop: '10px',
-      float: 'right',
-    },
-    icon: {
-      transform: 'rotate(90deg)',
-      margin: '0 10px',
-    },
-    separator: {
-      borderRight: `1px solid ${theme.palette.primary.contrastText}`,
-    },
-  })
-);
-
-type Props = {
-  switchChartDisplaySize: (size: number) => void;
-  chartDisplaySize:
-    | boolean
-    | 'auto'
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12;
-};
-
-export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
-  switchChartDisplaySize,
-  chartDisplaySize,
-}) => {
+export const ChartDisplaySizeSwitcher: React.FC = React.memo(() => {
   const classes = useStyles();
   const { theme } = useTheme();
+  const { chartDisplaySize, changeChartDisplaySize } = useChartDisplaySize();
 
   React.useEffect(() => {
-    switchChartDisplaySize(
+    changeChartDisplaySize(
       Number(window.localStorage.getItem('chartDisplaySize')) || 6
     );
   }, []);
@@ -60,7 +23,7 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
       <div className={classes.swither}>
         <ViewModuleIcon
           onClick={
-            chartDisplaySize === 12 ? () => switchChartDisplaySize(6) : () => {}
+            chartDisplaySize === 12 ? () => changeChartDisplaySize(6) : () => {}
           }
           style={{
             color:
@@ -75,7 +38,7 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
         <div className={classes.separator} />
         <ViewColumnIcon
           onClick={
-            chartDisplaySize === 6 ? () => switchChartDisplaySize(12) : () => {}
+            chartDisplaySize === 6 ? () => changeChartDisplaySize(12) : () => {}
           }
           style={{
             color:
@@ -90,4 +53,4 @@ export const ChartDisplaySizeSwitcher: React.FC<Props> = ({
       </div>
     </Hidden>
   );
-};
+});

@@ -25,7 +25,7 @@ const AuthContext = createContext({
   ) => {},
 });
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const alert = useAlert();
 

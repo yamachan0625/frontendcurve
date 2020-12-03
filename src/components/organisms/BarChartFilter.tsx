@@ -4,25 +4,22 @@ import dayjs from 'dayjs';
 import { FilterMenu } from '~/components/organisms/common/FilterMenu';
 import { BarChartFilterMenu } from '~/components/molecules/barChart/BarChartFilterMenu';
 import { useAccordion } from '~/hooks/useAccordion';
-import { useBarChart } from '~/contexts/page/barChartStore';
+import { useSortOrder } from '~/contexts/page/barChart/sortOrder';
+import { useSelectDatepicker } from '~/contexts/page/barChart/selectDatepicker';
 
 export const BarChartFilter: React.FC = () => {
   const { accordionElm, toggleAccordion } = useAccordion();
-  const { now, minDate } = useBarChart();
+  const { sortOrder } = useSortOrder();
+  const { selectDate } = useSelectDatepicker();
 
-  const [selectedFilter, setSelectedFilter] = React.useState([
-    'デフォルト',
-    String(dayjs(now).format('YYYY/MM/DD')),
-  ]);
+  const chipList = React.useMemo(
+    () => [sortOrder, String(dayjs(selectDate).format('YYYY/MM/DD'))],
+    [sortOrder, selectDate]
+  );
 
   return (
-    <FilterMenu selectedFilter={selectedFilter} ref={accordionElm}>
-      <BarChartFilterMenu
-        minDate={minDate}
-        maxDate={now}
-        toggleAccordion={toggleAccordion}
-        setSelectedFilter={setSelectedFilter}
-      />
+    <FilterMenu ref={accordionElm} chipList={chipList}>
+      <BarChartFilterMenu toggleAccordion={toggleAccordion} />
     </FilterMenu>
   );
 };

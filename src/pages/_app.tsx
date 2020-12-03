@@ -9,13 +9,9 @@ import {
 import { positions, Provider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 
-import { AuthProvider } from '~/contexts/auth';
-import { RootStoreProvider } from '~/contexts/rootStore';
-
+import { RootProvider } from '~/contexts/index';
 import '~/styles/reset.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ThemeContext } from '~/contexts/theme';
-import { ThemeContextProvider } from '~/contexts/theme';
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -64,13 +60,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ApolloProvider client={client}>
       <Provider template={AlertTemplate} {...options}>
-        <AuthProvider>
-          <RootStoreProvider>
-            <ThemeContextProvider>
-              <Component {...pageProps} />
-            </ThemeContextProvider>
-          </RootStoreProvider>
-        </AuthProvider>
+        <RootProvider>
+          <Component {...pageProps} />
+        </RootProvider>
       </Provider>
     </ApolloProvider>
   );
