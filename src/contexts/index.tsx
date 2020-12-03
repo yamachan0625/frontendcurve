@@ -3,6 +3,7 @@ import { ChartDisplaySizeProvider } from '~/contexts/chartDisplaySize';
 import { ThemeContextProvider } from '~/contexts/theme';
 import { BarChartProvider } from './page/barChart/index';
 import { LineChartProvider } from './page/lineChart/index';
+import { SideBarSelectProvider } from './sideBarSelect';
 
 export const RootProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -10,7 +11,9 @@ export const RootProvider = ({ children }: { children: React.ReactNode }) => {
       <ChartDisplaySizeProvider>
         <ThemeContextProvider>
           <BarChartProvider>
-            <LineChartProvider>{children}</LineChartProvider>
+            <LineChartProvider>
+              <SideBarSelectProvider>{children}</SideBarSelectProvider>
+            </LineChartProvider>
           </BarChartProvider>
         </ThemeContextProvider>
       </ChartDisplaySizeProvider>

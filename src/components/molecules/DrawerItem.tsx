@@ -11,7 +11,7 @@ import { SvgIconTypeMap } from '@material-ui/core/SvgIcon';
 import Link from 'next/link';
 
 import { useStyles } from './DrawerItemStyle';
-import { useSelectedIndex } from '~/hooks/useSelectedIndex';
+import { useSideBarSelect } from '~/contexts/sideBarSelect';
 import { DrawerItemChildren } from '~/components/molecules/DrawerItemChildren';
 
 type Props = {
@@ -26,54 +26,53 @@ type Props = {
   isStyle?: boolean;
 };
 
-export const DrawerItem: React.FC<Props> = ({
-  name,
-  Icon,
-  link = '',
-  items = [],
-  index,
-  isStyle = false,
-}) => {
-  const classes = useStyles();
-  const [open, selectedIndex, handleListItemClick] = useSelectedIndex();
-  const isExpandable = items && items.length > 0;
+export const DrawerItem: React.FC<Props> = React.memo(
+  ({ name, Icon, link = '', items = [], index, isStyle = false }) => {
+    const classes = useStyles();
+    const { selectedIndex } = useSideBarSelect();
+    const [open, setOpen] = React.useState(false);
 
-  const DrawerItemRoot = (
-    <ListItem
-      button
-      component={link === '' ? 'div' : 'a'}
-      onClick={() => handleListItemClick(index)}
-    >
-      <ListItemIcon classes={{ root: classes.iconRoot }}>
-        <Icon className={isStyle ? classes.iconStyle : ''} />
-      </ListItemIcon>
-      <ListItemText
-        primary={name}
-        classes={{ primary: classes.ListItemTextRoot }}
-      />
-      {open && isExpandable && (
-        <ExpandLess classes={{ root: classes.iconRoot }} fontSize="large" />
-      )}
-      {!open && isExpandable && (
-        <ExpandMore classes={{ root: classes.iconRoot }} fontSize="large" />
-      )}
-    </ListItem>
-  );
+    const isExpandable = items && items.length > 0;
+    const isLink = link !== '';
 
-  const DrawerItemChild = isExpandable && (
-    <Collapse in={open} timeout="auto" unmountOnExit>
-      <List component="div" disablePadding>
-        {items.map((item, i) => {
-          return <DrawerItemChildren {...item} key={i} />;
-        })}
-      </List>
-    </Collapse>
-  );
+    const DrawerItemRoot = (
+      <ListItem
+        button
+        component={isLink ? 'a' : 'div'}
+        onClick={() => setOpen(!open)}
+        selected={selectedIndex === index}
+      >
+        <ListItemIcon classes={{ root: classes.iconRoot }}>
+          <Icon className={isStyle ? classes.iconStyle : ''} />
+        </ListItemIcon>
+        <ListItemText
+          primary={name}
+          classes={{ primary: classes.ListItemTextRoot }}
+        />
+        {open && isExpandable && (
+          <ExpandLess classes={{ root: classes.iconRoot }} fontSize="large" />
+        )}
+        {!open && isExpandable && (
+          <ExpandMore classes={{ root: classes.iconRoot }} fontSize="large" />
+        )}
+      </ListItem>
+    );
 
-  return (
-    <>
-      {link === '' ? DrawerItemRoot : <Link href={link}>{DrawerItemRoot}</Link>}
-      {DrawerItemChild}
-    </>
-  );
-};
+    const DrawerItemChild = isExpandable && (
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          {items.map((item, i) => {
+            return <DrawerItemChildren {...item} key={i} />;
+          })}
+        </List>
+      </Collapse>
+    );
+
+    return (
+      <>
+        {isLink ? <Link href={link}>{DrawerItemRoot}</Link> : DrawerItemRoot}
+        {DrawerItemChild}
+      </>
+    );
+  }
+);

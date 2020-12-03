@@ -14,7 +14,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
       backgroundColor: theme.palette.primary.dark,
-      padding: '0 10px',
     },
   })
 );
