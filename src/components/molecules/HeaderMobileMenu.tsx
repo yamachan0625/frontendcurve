@@ -37,15 +37,15 @@ export const HeaderMobileMenu: React.FC<Props> = ({
         </HeadericonButton>
         <p>User</p>
       </MenuItem>
-      <Divider />
-      <MenuItem onClick={handleNotificationsMenuOpen}>
+      {/* <Divider /> */}
+      {/* <MenuItem onClick={handleNotificationsMenuOpen}>
         <HeadericonButton label="show new notifications">
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
           </Badge>
         </HeadericonButton>
         <p>通知</p>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
 };
