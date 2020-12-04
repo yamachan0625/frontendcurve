@@ -21,30 +21,29 @@ const PurpleSwitch = withStyles({
 
 const useSwitchTheme = () => {
   const { handleThemeChange } = useTheme();
-  const [isLightTheme, setLightTheme] = React.useState(true);
+  const [isDarkTheme, setDarkTheme] = React.useState(true);
 
   React.useEffect(() => {
-    window.localStorage.getItem('theme') === 'LIGHT' && setLightTheme(false);
+    window.localStorage.getItem('theme') !== 'DARK' && setDarkTheme(false);
   }, []);
 
   const handleChange = React.useCallback(() => {
-    setLightTheme(!isLightTheme);
-    handleThemeChange(isLightTheme ? 'LIGHT' : 'DARK');
-  }, [isLightTheme, handleThemeChange, setLightTheme]);
+    setDarkTheme(!isDarkTheme);
+    handleThemeChange(isDarkTheme ? 'LIGHT' : 'DARK');
+  }, [isDarkTheme, handleThemeChange, setDarkTheme]);
 
-  return { isLightTheme, handleChange };
+  return { isDarkTheme, handleChange };
 };
 
 export const SwitchTheme: React.FC = () => {
-  const { isLightTheme, handleChange } = useSwitchTheme();
+  const { isDarkTheme, handleChange } = useSwitchTheme();
 
   return (
     <FormControlLabel
       control={
         <PurpleSwitch
-          checked={isLightTheme}
+          checked={isDarkTheme}
           onChange={handleChange}
-          name="light"
           inputProps={{ 'aria-label': 'theme checkbox' }}
         />
       }
