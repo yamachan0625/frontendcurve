@@ -23,7 +23,7 @@ const drawerItems = [
     Icon: DashboardIcon,
     items: [
       {
-        name: 'Please wait...',
+        name: 'Comming soon...',
         link: '',
       },
     ],
