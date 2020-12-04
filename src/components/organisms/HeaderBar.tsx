@@ -48,14 +48,15 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
           {/* --PCのヘッダーここから-- */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <HeadericonButton
+            {/* 通知昨日がつくまで保留 */}
+            {/* <HeadericonButton
               label="how new notifications"
               onClick={handleNotificationsMenuOpen}
             >
               <Badge badgeContent={6} color="error">
                 <NotificationsIcon />
               </Badge>
-            </HeadericonButton>
+            </HeadericonButton> */}
             <HeadericonButton
               label="account of current user"
               edge="end"
