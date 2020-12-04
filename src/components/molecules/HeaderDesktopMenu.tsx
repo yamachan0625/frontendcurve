@@ -34,7 +34,8 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
         <Divider />
         <MenuItem onClick={logout}>ログアウト</MenuItem>
       </Menu>
-      <Menu
+      {/* 通知昨日がつくまで保留 */}
+      {/* <Menu
         aria-label="desktop menu"
         anchorEl={notificationsAnchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -46,7 +47,7 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
         <LinkMenuItem href={'/example'}>テスト１</LinkMenuItem>
         <Divider />
         <MenuItem onClick={logout}>テスト２</MenuItem>
-      </Menu>
+      </Menu> */}
     </>
   );
 };
