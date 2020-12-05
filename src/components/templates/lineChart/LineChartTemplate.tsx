@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useSideBarSelect } from '~/contexts/sideBarSelect';
-import { LineChartContent } from '~/components/organisms/LineChartContent';
-import { LineChartFilter } from '~/components/organisms/LineChartFilter';
+import { LineChartContent } from '~/components/organisms/lineChart/LineChartContent';
+import { LineChartFilter } from '~/components/organisms/lineChart/LineChartFilter';
 
 export const LineChartTemplate = () => {
   const { callSetSelectedIndex } = useSideBarSelect();
