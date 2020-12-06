@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { MainTemplate } from '~/components/templates/MainTemplate';
 import { WithTheme } from '~/components/templates/WithTheme';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useProtectRoute } from '~/contexts/auth';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 );
 
 const PrivacyPolicy: NextPage = () => {
+  useProtectRoute();
   const classes = useStyles();
 
   return (
