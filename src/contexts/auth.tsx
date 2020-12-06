@@ -4,7 +4,7 @@ import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useAlert } from 'react-alert';
 
-import { CURRENET_USER } from '~/queries/queries';
+import { CURRENT_USER } from '~/queries/queries';
 
 export type Auth = {
   refreshToken: string;
@@ -28,6 +28,7 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const alert = useAlert();
+  const client = useApolloClient();
 
   // グローバルで管理したいuser情報を持つstate
   const [user, setUser] = useState(null);
@@ -51,8 +52,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     alert.show(message, { type });
   };
 
-  const logout = () => {
-    destroyCookie(null, 'userId');
+  const logout = async () => {
+    // destroyCookie(null, 'userId');
+    document.cookie = 'userId=; expires=0';
     setUser(null);
     // TODO:ログアウト後に遷移させたいページを指定
     router.push('/auth');
@@ -93,7 +95,8 @@ export const useProtectRoute = () => {
 
   const loadUser = async () => {
     const { data } = await client.query({
-      query: CURRENET_USER,
+      query: CURRENT_USER,
+      fetchPolicy: 'no-cache',
     });
     setUserData(data);
   };

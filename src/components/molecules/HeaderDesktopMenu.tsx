@@ -1,7 +1,9 @@
 import React from 'react';
+import { parseCookies } from 'nookies';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
 import useAuth from '~/contexts/auth';
 
 import { LinkMenuItem } from '~/components/atoms/common/LinkMenuItem';
@@ -18,6 +20,7 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
   handleMenuClose,
 }) => {
   const { logout } = useAuth();
+  const { userId } = parseCookies();
 
   return (
     <>
@@ -30,11 +33,13 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
         open={Boolean(userAnchorEl)}
         onClose={handleMenuClose}
       >
-        <LinkMenuItem href={'/example'}>exampleに飛ぶ</LinkMenuItem>
+        <LinkMenuItem href={`/user/changePassword/${userId}`}>
+          パスワード変更
+        </LinkMenuItem>
         <Divider />
         <MenuItem onClick={logout}>ログアウト</MenuItem>
       </Menu>
-      {/* 通知昨日がつくまで保留 */}
+      {/*----- 通知昨日がつくまで保留 ------*/}
       {/* <Menu
         aria-label="desktop menu"
         anchorEl={notificationsAnchorEl}

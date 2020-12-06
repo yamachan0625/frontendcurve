@@ -36,10 +36,11 @@ export const CHANGE_PASSWORD = gql`
   }
 `;
 
-export const CURRENET_USER = gql`
+export const CURRENT_USER = gql`
   {
     user {
       id
+      email
     }
   }
 `;
