@@ -7,10 +7,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'inline',
     },
     filterButton: {
-      color: theme.palette.getContrastText(purple[500]),
-      backgroundColor: purple[500],
+      color: theme.palette.secondary.contrastText,
+      backgroundColor: theme.palette.secondary.main,
       '&:hover': {
-        backgroundColor: purple[700],
+        backgroundColor: theme.palette.secondary.dark,
       },
       fontWeight: 'bold',
       marginTop: theme.spacing(2),
