@@ -17,7 +17,7 @@ export const SkillLineChart: React.FC<Props> = ({ data }) => {
   return (
     <ChartGrid chartDisplaySize={chartDisplaySize}>
       {data.getLineChartList.jobData.map((jobData, i) => (
-        <Grid item xs={12} md={6} key={i}>
+        <Grid item xs={12} md={chartDisplaySize} key={i}>
           <LineChartDetail data={data} jobData={jobData} />
         </Grid>
       ))}
