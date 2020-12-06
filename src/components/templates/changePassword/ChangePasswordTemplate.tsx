@@ -68,10 +68,20 @@ export const ChangePasswordTemplate: NextPage = () => {
             color="secondary"
             fullWidth
             variant="outlined"
-            error={errors.email ? true : false}
-            helperText={errors.email && errors.email.message}
+            error={errors.currentPassword ? true : false}
+            helperText={
+              errors.currentPassword && errors.currentPassword.message
+            }
             inputRef={register({
               required: '現在のパスワードは必須です',
+              minLength: {
+                value: 8,
+                message: '8文字以上100文字以下で入力してください',
+              },
+              maxLength: {
+                value: 100,
+                message: '8文字以上100文字以下で入力してください',
+              },
             })}
           />
           <TextField
@@ -81,23 +91,41 @@ export const ChangePasswordTemplate: NextPage = () => {
             color="secondary"
             fullWidth
             variant="outlined"
-            error={errors.email ? true : false}
-            helperText={errors.email && errors.email.message}
+            error={errors.newPassword ? true : false}
+            helperText={errors.newPassword && errors.newPassword.message}
             inputRef={register({
               required: '新しいパスワードは必須です',
+              minLength: {
+                value: 8,
+                message: '8文字以上100文字以下で入力してください',
+              },
+              maxLength: {
+                value: 100,
+                message: '8文字以上100文字以下で入力してください',
+              },
             })}
           />
           <TextField
             className={classes.formMargin}
             name="confirmNewPassword"
-            label="新しいパスワード"
+            label="新しいパスワード再入力"
             color="secondary"
             fullWidth
             variant="outlined"
-            error={errors.email ? true : false}
-            helperText={errors.email && errors.email.message}
+            error={errors.confirmNewPassword ? true : false}
+            helperText={
+              errors.confirmNewPassword && errors.confirmNewPassword.message
+            }
             inputRef={register({
               required: '新しいパスワード再入力は必須です',
+              minLength: {
+                value: 8,
+                message: '8文字以上100文字以下で入力してください',
+              },
+              maxLength: {
+                value: 100,
+                message: '8文字以上100文字以下で入力してください',
+              },
             })}
           />
           <Button
