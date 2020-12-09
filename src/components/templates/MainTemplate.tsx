@@ -40,7 +40,7 @@ export const MainTemplate = ({ children }) => {
   const classes = useStyles();
   const { loading } = useLoading();
 
-  const [mobileOpen, handleDrawerToggle] = useMobileOpen();
+  const { mobileOpen, handleDrawerToggle } = useMobileOpen();
 
   return (
     <div className={classes.root}>
