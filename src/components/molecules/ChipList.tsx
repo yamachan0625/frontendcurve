@@ -11,7 +11,7 @@ export const ChipList: React.FC<Props> = React.memo(({ chipList }) => {
     <ul className={classes.chipRoot}>
       {chipList.map((data, i) => {
         return (
-          <li className={classes.chip} key={i}>
+          <li className={classes.chip} data-testid="chip-element" key={i}>
             {data}
           </li>
         );
