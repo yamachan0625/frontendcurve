@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-const SortOrderContext = createContext({
+export const SortOrderContext = createContext({
   sortOrder: 'デフォルト',
   callSetSortOrder: (order: string) => {},
 });

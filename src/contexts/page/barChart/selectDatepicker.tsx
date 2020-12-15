@@ -1,9 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import dayjs from 'dayjs';
 
 import { chartMaxDate } from '~/helpers/date';
 
-const SelectDatepickerContext = createContext({
+export const SelectDatepickerContext = createContext({
   selectDate: new Date(),
   callSetSelectDate: (date) => {},
 });

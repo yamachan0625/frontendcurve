@@ -3,7 +3,7 @@ import { useLazyQuery } from '@apollo/client';
 
 import { GET_BAR_CHART_LIST } from '~/queries/queries';
 
-const BarChartDataContext = createContext({
+export const BarChartDataContext = createContext({
   getBarChartList: (options) => {},
   loading: false,
   data: {
