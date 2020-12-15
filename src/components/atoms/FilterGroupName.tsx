@@ -11,7 +11,7 @@ export const FilterGroupName: React.FC<Props> = ({ name, children }) => {
   return (
     <div className={classes.filterGroupName}>
       <u>
-        <p>{name}</p>
+        <p data-testid="filter-name">{name}</p>
       </u>
       {children}
     </div>
