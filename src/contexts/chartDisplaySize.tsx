@@ -10,7 +10,7 @@ export const ChartDisplaySizeProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [chartDisplaySize, setChartDisplaySize] = React.useState(6 as 6 | 12);
+  const [chartDisplaySize, setChartDisplaySize] = React.useState<6 | 12>(6);
 
   /** チャートの分割数はlocalStorageにて管理する */
   const changeChartDisplaySize = (size: 6 | 12) => {
