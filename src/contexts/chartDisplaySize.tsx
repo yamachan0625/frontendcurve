@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-const ChartDisplaySizeContext = createContext({
+export const ChartDisplaySizeContext = createContext({
   chartDisplaySize: 6 as 6 | 12,
   changeChartDisplaySize: (size: number) => {},
 });

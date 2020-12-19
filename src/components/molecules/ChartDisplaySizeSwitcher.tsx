@@ -34,6 +34,7 @@ export const ChartDisplaySizeSwitcher: React.FC = React.memo(() => {
           }}
           fontSize="large"
           className={classes.icon}
+          data-testid="single-display-switcher"
         />
         <div className={classes.separator} />
         <ViewColumnIcon
@@ -49,6 +50,7 @@ export const ChartDisplaySizeSwitcher: React.FC = React.memo(() => {
           }}
           fontSize="large"
           className={classes.icon}
+          data-testid="double-display-switcher"
         />
       </div>
     </Hidden>
