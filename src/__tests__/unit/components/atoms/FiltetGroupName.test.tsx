@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { FilterGroupName } from '~/components/atoms/FilterGroupName';
 
 describe('<FilterGroupName />', () => {
-  it('chipの数が3個存在する', () => {
+  it('引数で渡ってきた値が存在する', () => {
     const name = '並び順';
     render(<FilterGroupName name={name}></FilterGroupName>);
 
