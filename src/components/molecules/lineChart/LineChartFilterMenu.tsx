@@ -139,6 +139,7 @@ export const LineChartFilterMenu: React.FC<Props> = React.memo(
             variant="contained"
             type="submit"
             className={classes.filterButton}
+            data-testid="filter-button"
           >
             適用
           </Button>
