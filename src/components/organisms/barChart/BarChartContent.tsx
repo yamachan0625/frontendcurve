@@ -30,7 +30,7 @@ export const BarChartContent: React.FC = React.memo(() => {
       /** datepickerのminDateをapiからもらった値で書き換え */
       callSetMinDate(new Date(data.getBarChartList.minDate));
     }
-  }, []);
+  }, [data]);
 
   return (
     <>
