@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
+import { ChartPlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillLineChart } from '~/components/molecules/lineChart/SkillLineChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
 import { useLineChartData } from '~/contexts/page/lineChart/lineChartData';
@@ -23,7 +23,7 @@ export const LineChartContent: React.FC = React.memo(() => {
     <>
       <ChartDisplaySizeSwitcher />
       <Grid container spacing={0}>
-        {loading && <PlaceHolder />}
+        {loading && <ChartPlaceHolder />}
         {data && <SkillLineChart data={data} />}
       </Grid>
     </>
