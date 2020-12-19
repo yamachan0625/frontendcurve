@@ -1,19 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import {
-  act,
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act, cleanup } from '@testing-library/react-hooks';
+import { MockedProvider } from '@apollo/client/testing';
+
 import { BarChartFilterMenu } from '~/components/molecules/barChart/BarChartFilterMenu';
-import { cleanup } from '@testing-library/react';
-import barChartData from '~/mock/barChartMock.json';
 import { SelectDatepickerContext } from '~/contexts/page/barChart/selectDatepicker';
 import { SortOrderContext } from '~/contexts/page/barChart/sortOrder';
-import { BarChartDataContext } from '~/contexts/page/barChart/barChartData';
-import { MockedProvider } from '@apollo/client/testing';
 
 const toggleAccordion = jest.fn();
 
@@ -28,21 +21,13 @@ beforeEach(() => {
     callSetSortOrder: jest.fn(),
   };
 
-  const barChartDataMock = {
-    getBarChartList: jest.fn(),
-    laoding: false,
-    data: barChartData,
-  };
-
   render(
     <MockedProvider mocks={[]} addTypename={false}>
-      <BarChartDataContext.Provider value={barChartDataMock as any}>
-        <SortOrderContext.Provider value={sortOrderMock}>
-          <SelectDatepickerContext.Provider value={selectDatePickerMock}>
-            <BarChartFilterMenu toggleAccordion={toggleAccordion} />
-          </SelectDatepickerContext.Provider>
-        </SortOrderContext.Provider>
-      </BarChartDataContext.Provider>
+      <SortOrderContext.Provider value={sortOrderMock}>
+        <SelectDatepickerContext.Provider value={selectDatePickerMock}>
+          <BarChartFilterMenu toggleAccordion={toggleAccordion} />
+        </SelectDatepickerContext.Provider>
+      </SortOrderContext.Provider>
     </MockedProvider>
   );
 });
@@ -58,8 +43,14 @@ describe('<BarChartFilterMenu />', () => {
       'Fri Dec 11 2020 11:03:04 GMT+0900 (Japan Standard Time)'
     );
   });
+
   describe('並び順ラジオボタンの検証', () => {
-    it('並び順ラジオボタン初期値、選択時の挙動', () => {
+    it('デフォルトが初期値としてcheckされている', () => {
+      const radio = screen.getByDisplayValue('デフォルト') as HTMLInputElement;
+      expect(radio.checked).toBe(true);
+    });
+
+    it('初期値、選択時の挙動', () => {
       const radio = screen.getByDisplayValue('デフォルト') as HTMLInputElement;
       expect(radio.value).toBe('デフォルト');
       act(() => {
@@ -67,7 +58,8 @@ describe('<BarChartFilterMenu />', () => {
       });
       expect(radio.value).toBe('降順');
     });
-    it('並び順ラジオボタンにデフォルト、降順、昇順が存在する', () => {
+
+    it('デフォルト、降順、昇順が存在する', () => {
       const radio = screen.getAllByRole('radio') as HTMLInputElement[];
       expect(radio.map((target) => target.value)).toEqual([
         'デフォルト',
@@ -76,6 +68,7 @@ describe('<BarChartFilterMenu />', () => {
       ]);
     });
   });
+
   it('ボタンクリックでtoggleAccordionが呼ばれる', async () => {
     fireEvent.submit(screen.getByTestId('filter-button'));
     await waitFor(() => {
