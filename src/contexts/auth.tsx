@@ -28,7 +28,6 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const alert = useAlert();
-  const client = useApolloClient();
 
   // グローバルで管理したいuser情報を持つstate
   const [user, setUser] = useState(null);
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useAuth = () => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   return context;
 };
@@ -101,15 +100,6 @@ export const useProtectRoute = () => {
     setUserData(data);
   };
 
-  // SSR後にuser情報をstateに格納したい
-  useEffect(() => {
-    if (userId) {
-      loadUser();
-      return;
-    }
-    setUserData(null);
-  }, []);
-
   // パスが変わるたびに呼び出す
   useEffect(() => {
     setLoadingState(true);
@@ -122,6 +112,15 @@ export const useProtectRoute = () => {
       }
     }
   }, [currentPath]);
+
+  // SSR後にuser情報をstateに格納したい
+  useEffect(() => {
+    if (userId) {
+      loadUser();
+      return;
+    }
+    setUserData(null);
+  }, []);
 
   return;
 };
