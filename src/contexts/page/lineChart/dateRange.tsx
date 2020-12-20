@@ -1,12 +1,14 @@
 import React, { createContext, useContext } from 'react';
 
-const DateRangeContext = createContext({
+export const DateRangeContext = createContext({
   selectedDateRange: '1週間',
   callSetRangeDate: (date) => {},
 });
 
 export const DateRangeProvider = ({ children }) => {
-  const [selectedDateRange, setSelectedDateRange] = React.useState('1週間');
+  const [selectedDateRange, setSelectedDateRange] = React.useState<
+    '1週間' | '1ヶ月' | '3ヶ月'
+  >('1週間');
 
   const callSetRangeDate = (date) => {
     setSelectedDateRange(date);

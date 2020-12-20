@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { PlaceHolder } from '~/components/molecules/ChartPlaceHolder';
+import { ChartPlaceHolder } from '~/components/molecules/ChartPlaceHolder';
 import { SkillBarChart } from '~/components/molecules/barChart/SkillBarChart';
 import { ChartDisplaySizeSwitcher } from '~/components/molecules/ChartDisplaySizeSwitcher';
 import { useMinDate } from '~/contexts/page/barChart/minDate';
@@ -30,13 +30,13 @@ export const BarChartContent: React.FC = React.memo(() => {
       /** datepickerのminDateをapiからもらった値で書き換え */
       callSetMinDate(new Date(data.getBarChartList.minDate));
     }
-  }, []);
+  }, [data]);
 
   return (
     <>
       <ChartDisplaySizeSwitcher />
       <Grid container spacing={0}>
-        {loading && <PlaceHolder />}
+        {loading && <ChartPlaceHolder />}
         {data && <SkillBarChart jobData={data.getBarChartList.jobData} />}
       </Grid>
     </>

@@ -13,7 +13,7 @@ import { useSelectDatepicker } from '~/contexts/page/barChart/selectDatepicker';
 import { useSortOrder } from '~/contexts/page/barChart/sortOrder';
 import { useBarChartData } from '~/contexts/page/barChart/barChartData';
 
-const sortList = ['デフォルト', '降順', '昇順'] as const;
+const defaultSortList = ['デフォルト', '降順', '昇順'] as const;
 
 type Props = {
   toggleAccordion: () => void;
@@ -28,7 +28,13 @@ export const BarChartFilterMenu: React.FC<Props> = React.memo(
     const { callSetSortOrder } = useSortOrder();
     const { getBarChartList } = useBarChartData();
 
-    const onSubmit = ({ date, sortOrder }) => {
+    const onSubmit = ({
+      date,
+      sortOrder,
+    }: {
+      date: Date;
+      sortOrder: string;
+    }) => {
       getBarChartList({
         variables: { date, sortOrder },
       });
@@ -44,12 +50,13 @@ export const BarChartFilterMenu: React.FC<Props> = React.memo(
               name="sortOrder"
               as={
                 <RadioGroup name="sortOrder">
-                  {sortList.map((item) => (
+                  {defaultSortList.map((item, i) => (
                     <FormControlLabel
                       key={item}
                       value={item}
                       control={<Radio color="default" />}
                       label={item}
+                      data-testid={`radio-button-${i}`}
                     />
                   ))}
                 </RadioGroup>
@@ -72,6 +79,7 @@ export const BarChartFilterMenu: React.FC<Props> = React.memo(
                 placeholderText="日付を選択してください"
               />
               <input
+                data-testid="date-hiden-input-field"
                 value={String(selectDate)}
                 name="date"
                 ref={register}
@@ -83,6 +91,7 @@ export const BarChartFilterMenu: React.FC<Props> = React.memo(
             variant="contained"
             type="submit"
             className={classes.filterButton}
+            data-testid="filter-button"
           >
             適用
           </Button>

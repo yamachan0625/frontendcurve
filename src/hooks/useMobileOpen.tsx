@@ -7,5 +7,5 @@ export const useMobileOpen = () => {
     setMobileOpen(!mobileOpen);
   }, [mobileOpen]);
 
-  return [mobileOpen, handleDrawerToggle] as const;
+  return { mobileOpen, handleDrawerToggle } as const;
 };

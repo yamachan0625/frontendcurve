@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-const SelectSkillContext = createContext({
+export const SelectSkillContext = createContext({
   selectedSkills: ['React', 'VueJs', 'Angular'],
   callSetSelectSkills: (skills) => {},
 });
