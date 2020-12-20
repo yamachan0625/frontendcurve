@@ -32,7 +32,7 @@ const drawerItems = [
     name: 'BarChart',
     link: '/barChart',
     Icon: BarChartIcon,
-    isStyle: true,
+    isRotateStyle: true,
   },
   {
     name: 'LineChart',

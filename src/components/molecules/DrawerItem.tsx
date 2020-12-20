@@ -23,11 +23,11 @@ type Props = {
     link: string;
   }[];
   index: number;
-  isStyle?: boolean;
+  isRotateStyle?: boolean;
 };
 
 export const DrawerItem: React.FC<Props> = React.memo(
-  ({ name, Icon, link = '', items = [], index, isStyle = false }) => {
+  ({ name, Icon, link = '', items = [], index, isRotateStyle = false }) => {
     const classes = useStyles();
     const { selectedIndex } = useSideBarSelect();
     const [open, setOpen] = React.useState(false);
@@ -41,24 +41,33 @@ export const DrawerItem: React.FC<Props> = React.memo(
         component={isLink ? 'a' : 'div'}
         onClick={() => setOpen(!open)}
         selected={selectedIndex === index}
+        data-testid="drawer-open-button"
       >
         <ListItemIcon classes={{ root: classes.iconRoot }}>
-          <Icon className={isStyle ? classes.iconStyle : ''} />
+          <Icon className={isRotateStyle ? classes.iconStyle : ''} />
         </ListItemIcon>
         <ListItemText
           primary={name}
           classes={{ primary: classes.ListItemTextRoot }}
         />
         {open && isExpandable && (
-          <ExpandLess classes={{ root: classes.iconRoot }} fontSize="large" />
+          <ExpandLess
+            classes={{ root: classes.iconRoot }}
+            fontSize="large"
+            data-testid="open-icon"
+          />
         )}
         {!open && isExpandable && (
-          <ExpandMore classes={{ root: classes.iconRoot }} fontSize="large" />
+          <ExpandMore
+            classes={{ root: classes.iconRoot }}
+            fontSize="large"
+            data-testid="close-icon"
+          />
         )}
       </ListItem>
     );
 
-    const DrawerItemChild = isExpandable && (
+    const DrawerItemChild = isExpandable ? (
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {items.map((item, i) => {
@@ -66,7 +75,7 @@ export const DrawerItem: React.FC<Props> = React.memo(
           })}
         </List>
       </Collapse>
-    );
+    ) : null;
 
     return (
       <>

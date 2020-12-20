@@ -14,7 +14,20 @@ type Props = {
 export const DrawerItemChildren: React.FC<Props> = ({ name, link }) => {
   const classes = useStyles();
 
-  return (
+  return link === '' ? (
+    <ListItem
+      classes={{
+        root: classes.ListItemRootChild,
+      }}
+      button
+      component="div"
+    >
+      <ListItemText
+        primary={name}
+        classes={{ primary: classes.ListItemTextRoot }}
+      />
+    </ListItem>
+  ) : (
     <Link href={link}>
       <ListItem
         classes={{
