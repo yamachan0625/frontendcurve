@@ -26,6 +26,7 @@ export const AuthButton: React.FC<Props> = ({
       color={color}
       type={type}
       onClick={onClick}
+      data-testid="auth-submit-button"
     >
       {children}
     </Button>
