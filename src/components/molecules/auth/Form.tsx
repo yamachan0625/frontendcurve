@@ -27,7 +27,7 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
   const { register, handleSubmit, errors } = useForm();
   const [authFunc] = useMutation(type);
 
-  const [isShowPassWord, setShowPassword] = React.useState(true);
+  const [isShowPassWord, setShowPassword] = React.useState(false);
 
   const onSubmit = async (
     { email, password }: { email: string; password: string },
@@ -75,6 +75,7 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
         })}
       />
       <TextField
+        id="password-field"
         type={isShowPassWord ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
