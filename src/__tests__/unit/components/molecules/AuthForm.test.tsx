@@ -41,7 +41,7 @@ describe('<AuthForm />', () => {
 
   it('値が不正である場合のバリデーションテスト', async () => {
     const emailTextBox = screen.getAllByRole('textbox')[0];
-    const passwordTextBox = screen.getAllByRole('textbox')[1];
+    const passwordTextBox = screen.getByLabelText('パスワード');
 
     fireEvent.change(emailTextBox, {
       target: {
