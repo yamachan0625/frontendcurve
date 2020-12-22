@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { setCookie } from 'nookies';
 import { TextField } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { DocumentNode } from 'graphql';
 
 import { useRouter } from 'next/router';
@@ -20,9 +24,10 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
   const classes = useStyles();
   const router = useRouter();
   const { setUserData, showAleartMessage } = useAuth();
-
   const { register, handleSubmit, errors } = useForm();
   const [authFunc] = useMutation(type);
+
+  const [isShowPassWord, setShowPassword] = React.useState(true);
 
   const onSubmit = async (
     { email, password }: { email: string; password: string },
@@ -70,6 +75,19 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
         })}
       />
       <TextField
+        type={isShowPassWord ? 'text' : 'password'}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword((show) => !show)}
+              >
+                {isShowPassWord ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         className={classes.formMargin}
         name="password"
         label="パスワード"
