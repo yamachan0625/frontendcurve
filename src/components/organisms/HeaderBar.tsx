@@ -61,6 +61,7 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
               label="account of current user"
               edge="end"
               onClick={handleUserMenuOpen}
+              testId="user-info-button"
             >
               <AccountCircle />
             </HeadericonButton>

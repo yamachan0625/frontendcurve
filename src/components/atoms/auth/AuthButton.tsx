@@ -8,6 +8,7 @@ type Props = {
   color?: PropTypes.Color;
   type: 'button' | 'reset' | 'submit';
   onClick?: () => void;
+  testId?: string;
 };
 
 export const AuthButton: React.FC<Props> = ({
@@ -15,6 +16,7 @@ export const AuthButton: React.FC<Props> = ({
   type,
   onClick = () => {},
   children,
+  testId = '',
 }) => {
   const classes = useStyles();
 
@@ -26,7 +28,7 @@ export const AuthButton: React.FC<Props> = ({
       color={color}
       type={type}
       onClick={onClick}
-      data-testid="auth-submit-button"
+      data-testid={testId}
     >
       {children}
     </Button>

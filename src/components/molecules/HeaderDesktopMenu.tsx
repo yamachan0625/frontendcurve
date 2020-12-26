@@ -37,7 +37,9 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
           パスワード変更
         </LinkMenuItem>
         <Divider />
-        <MenuItem onClick={logout}>ログアウト</MenuItem>
+        <MenuItem onClick={logout} data-testid="logout-button">
+          ログアウト
+        </MenuItem>
       </Menu>
       {/*----- 通知昨日がつくまで保留 ------*/}
       {/* <Menu
