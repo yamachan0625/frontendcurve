@@ -33,7 +33,10 @@ export const HeaderDesktopMenu: React.FC<Props> = ({
         open={Boolean(userAnchorEl)}
         onClose={handleMenuClose}
       >
-        <LinkMenuItem href={`/user/changePassword/${userId}`}>
+        <LinkMenuItem
+          href={`/user/changePassword/${userId}`}
+          id="changePassword-link-button"
+        >
           パスワード変更
         </LinkMenuItem>
         <Divider />

@@ -17,7 +17,7 @@ describe('ユーザー認証テスト', () => {
     cy.findByTestId('change-auth-button').click();
     cy.findByTestId('auth-title').should('have.text', 'Sign Up');
     cy.findByRole('textbox').type('test@test.com');
-    cy.findByLabelText('パスワード').type('12345aiueo');
+    cy.findByLabelText('パスワード').type('1234aiueo');
     cy.findByTestId('signup-button').click();
     cy.url().should('include', '/auth');
   });
@@ -25,12 +25,12 @@ describe('ユーザー認証テスト', () => {
   it('不正メールアドレス入力時ログインできない(/authから遷移しない)', () => {
     cy.visit('/auth');
     cy.findByRole('textbox').type('test2@test.com');
-    cy.findByLabelText('パスワード').type('12345aiueo');
+    cy.findByLabelText('パスワード').type('1234aiueo');
     cy.findByTestId('login-button').click();
     cy.url().should('include', '/auth');
   });
 
-  it('不パスワード入力時ログインできない(/authから遷移しない)', () => {
+  it('不正パスワード入力時ログインできない(/authから遷移しない)', () => {
     cy.visit('/auth');
     cy.findByRole('textbox').type('test@test.com');
     cy.findByLabelText('パスワード').type('passpass');
@@ -41,7 +41,7 @@ describe('ユーザー認証テスト', () => {
   it('正しいメールアドレスとパスワードを入力しログインすると/barChartに遷移する', () => {
     cy.visit('/auth');
     cy.findByRole('textbox').type('test@test.com');
-    cy.findByLabelText('パスワード').type('12345aiueo');
+    cy.findByLabelText('パスワード').type('1234aiueo');
     cy.findByTestId('login-button').click();
     cy.url().should('include', '/barChart');
   });
