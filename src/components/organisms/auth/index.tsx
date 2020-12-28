@@ -27,10 +27,17 @@ export const AuthWrapper: React.FC<Props> = ({
 
   return (
     <div className={classes.paper}>
-      <div className={classes.title}>{title}</div>
+      <div className={`${classes.title}`} data-testid="auth-title">
+        {title}
+      </div>
       <AuthForm type={type} dataKey={dataKey} buttonText={buttonText} />
       <div className={classes.sepalater}>{sepalateText}</div>
-      <AuthButton color="default" type="button" onClick={onClick}>
+      <AuthButton
+        color="default"
+        type="button"
+        onClick={onClick}
+        testId="change-auth-button"
+      >
         {children}
       </AuthButton>
     </div>

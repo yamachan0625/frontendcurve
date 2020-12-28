@@ -108,7 +108,11 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
           },
         })}
       />
-      <AuthButton color="primary" type="submit">
+      <AuthButton
+        color="primary"
+        type="submit"
+        testId={dataKey === 'login' ? 'login-button' : 'signup-button'}
+      >
         {buttonText}
       </AuthButton>
     </form>

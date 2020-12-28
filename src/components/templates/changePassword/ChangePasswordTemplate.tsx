@@ -133,6 +133,7 @@ export const ChangePasswordTemplate: NextPage = () => {
             fullWidth
             className={classes.formMargin}
             type="submit"
+            data-testid="changePassword-submit-button"
           >
             パスワード変更
           </Button>

@@ -41,7 +41,7 @@ export const DrawerItem: React.FC<Props> = React.memo(
         component={isLink ? 'a' : 'div'}
         onClick={() => setOpen(!open)}
         selected={selectedIndex === index}
-        data-testid="drawer-open-button"
+        data-testid={isLink ? `${name}-link-button` : 'drawer-open-button'}
       >
         <ListItemIcon classes={{ root: classes.iconRoot }}>
           <Icon className={isRotateStyle ? classes.iconStyle : ''} />

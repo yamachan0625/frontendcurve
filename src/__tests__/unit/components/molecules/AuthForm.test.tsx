@@ -28,7 +28,7 @@ beforeEach(() => {
 
 describe('<AuthForm />', () => {
   it('値が存在しない場合のバリデーションテスト', async () => {
-    const button = screen.getByTestId('auth-submit-button');
+    const button = screen.getByTestId('login-button');
     fireEvent.submit(button);
     await waitFor(() => {
       new Promise((resolve) => setTimeout(resolve, 0));
@@ -55,7 +55,7 @@ describe('<AuthForm />', () => {
       },
     });
 
-    const button = screen.getByTestId('auth-submit-button');
+    const button = screen.getByTestId('login-button');
     fireEvent.submit(button);
 
     await waitFor(() => {

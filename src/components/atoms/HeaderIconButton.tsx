@@ -6,6 +6,7 @@ type Props = {
   edge?: 'start' | 'end' | false;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   className?: string;
+  testId?: string;
 };
 
 export const HeadericonButton: React.FC<Props> = ({
@@ -13,6 +14,7 @@ export const HeadericonButton: React.FC<Props> = ({
   edge = 'start',
   onClick = () => {},
   className = '',
+  testId = '',
   children,
 }) => {
   return (
@@ -21,6 +23,7 @@ export const HeadericonButton: React.FC<Props> = ({
       edge={edge}
       onClick={onClick}
       className={className}
+      data-testid={testId}
     >
       {children}
     </IconButton>

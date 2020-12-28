@@ -11,10 +11,16 @@ type LinkMenuItemProps = Omit<
 export const LinkMenuItem = React.forwardRef<
   HTMLAnchorElement,
   LinkMenuItemProps
->(function LinkMenuItem({ href, onClick, children }, forwardedRef) {
+>(function LinkMenuItem({ href, onClick, id, children }, forwardedRef) {
   return (
     <Link href={href}>
-      <MenuItem component="a" button ref={forwardedRef} onClick={onClick}>
+      <MenuItem
+        component="a"
+        button
+        ref={forwardedRef}
+        onClick={onClick}
+        data-testid={id}
+      >
         {children}
       </MenuItem>
     </Link>
