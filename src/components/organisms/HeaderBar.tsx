@@ -44,10 +44,11 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
             <MenuIcon />
           </HeadericonButton>
 
-          <SwitchTheme />
           {/* --PCのヘッダーここから-- */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <SwitchTheme />
+
             {/* 通知昨日がつくまで保留 */}
             {/* <HeadericonButton
               label="how new notifications"
@@ -71,6 +72,7 @@ export const HeaderBar: React.FC<Props> = ({ handleDrawerToggle }) => {
           {/* --モバイルのヘッダーここから-- */}
           <div className={classes.sectionMobile}>
             <HeadericonButton label="show more" onClick={handleMobileMenuOpen}>
+              <SwitchTheme />
               <MoreIcon />
             </HeadericonButton>
           </div>
