@@ -1,9 +1,12 @@
 import React from 'react';
+import Link from 'next/link';
 import { DocumentNode } from 'graphql';
 
 import { useStyles } from './indexStyle';
 import { AuthForm } from '~/components/molecules/auth/Form';
 import { AuthButton } from '~/components/atoms/auth/AuthButton';
+//MEMO: 絶対パスで指定すると読み込めなかった
+import LogoIcon from '../../../svgs/logo.svg';
 
 type Props = {
   type: DocumentNode;
@@ -27,6 +30,11 @@ export const AuthWrapper: React.FC<Props> = ({
 
   return (
     <div className={classes.paper}>
+      <Link href="/barChart">
+        <a>
+          <LogoIcon width="50px" />
+        </a>
+      </Link>
       <div className={`${classes.title}`} data-testid="auth-title">
         {title}
       </div>

@@ -6,11 +6,13 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import Divider from '@material-ui/core/Divider';
-
 import List from '@material-ui/core/List';
+import Link from 'next/link';
 
 import { DrawerItem } from '~/components/molecules/DrawerItem';
 import { useStyles } from './SideBarStyle';
+//MEMO: 絶対パスで指定すると読み込めなかった
+import LogoIcon from '../../svgs/logo.svg';
 
 type Props = {
   mobileOpen: boolean;
@@ -49,7 +51,7 @@ export const SideBar: React.FC<Props> = ({
   const theme = useTheme();
 
   return (
-    <nav className={classes.drawer} aria-label="mailbox folders">
+    <nav className={classes.drawer} aria-label="side-bar">
       {/* SP表示用コンテンツ */}
       <Hidden smUp implementation="css">
         <Drawer
@@ -65,7 +67,13 @@ export const SideBar: React.FC<Props> = ({
           }}
         >
           <List>
-            <div className={classes.toolbar} />
+            <div className={classes.toolbar}>
+              <Link href="/barChart">
+                <a className={classes.imageWrapper}>
+                  <LogoIcon width="24px" className={classes.logoIcon} />
+                </a>
+              </Link>
+            </div>
             <Divider />
             {drawerItems.map((item, i) => {
               return <DrawerItem {...item} index={i} key={i} />;
@@ -82,8 +90,14 @@ export const SideBar: React.FC<Props> = ({
           variant="permanent"
           open
         >
-          <List>
-            <div className={classes.toolbar} />
+          <List className={classes.drawerList}>
+            <div className={classes.toolbar}>
+              <Link href="/barChart">
+                <a className={classes.imageWrapper}>
+                  <LogoIcon width="22px" className={classes.logoIcon} />
+                </a>
+              </Link>
+            </div>
             <Divider />
             {drawerItems.map((item, i) => {
               return <DrawerItem {...item} index={i} key={i} />;
