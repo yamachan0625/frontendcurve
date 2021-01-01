@@ -15,5 +15,20 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
       backgroundColor: theme.palette.primary.dark,
     },
+    drawerList: {
+      paddingTop: '0px',
+    },
+    imageWrapper: {
+      display: 'block',
+      minHeight: '64px',
+      paddingLeft: theme.spacing(2),
+      position: 'relative',
+    },
+    logoIcon: {
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      margin: 'auto',
+    },
   })
 );
