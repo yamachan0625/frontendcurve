@@ -5,10 +5,11 @@ import { useMutation } from '@apollo/client';
 import { TextField } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { Container } from '@material-ui/core';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { CHANGE_PASSWORD } from '~/queries/queries';
 import useAuth, { useProtectRoute } from '~/contexts/auth';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useSideBarSelect } from '~/contexts/sideBarSelect';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +33,7 @@ export const ChangePasswordTemplate: NextPage = () => {
   const classes = useStyles();
   const { user, showAleartMessage } = useAuth();
   const { register, handleSubmit, errors } = useForm();
+  const { callSetSelectedIndex } = useSideBarSelect();
 
   const [chengePassword] = useMutation(CHANGE_PASSWORD);
 
@@ -54,6 +56,10 @@ export const ChangePasswordTemplate: NextPage = () => {
       showAleartMessage(error.message, 'error');
     }
   };
+
+  React.useEffect(() => {
+    callSetSelectedIndex(null);
+  }, []);
 
   return (
     <Container maxWidth="xs">

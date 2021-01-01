@@ -6,10 +6,10 @@ const SideBarSelectContext = createContext({
 });
 
 export const SideBarSelectProvider = ({ children }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState<null | number>(1);
+  const [selectedIndex, setSelectedIndex] = React.useState<null | number>(null);
 
   const callSetSelectedIndex = React.useCallback(
-    (index: number) => {
+    (index: number | null) => {
       setSelectedIndex(index);
     },
     [selectedIndex]

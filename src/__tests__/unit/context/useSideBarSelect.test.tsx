@@ -16,7 +16,7 @@ describe('useSideBarSelect', () => {
     const { result } = renderHook(() => useSideBarSelect(), {
       wrapper,
     });
-    expect(result.current.selectedIndex).toBe(1);
+    expect(result.current.selectedIndex).toBe(null);
     act(() => {
       result.current.callSetSelectedIndex(2);
     });
