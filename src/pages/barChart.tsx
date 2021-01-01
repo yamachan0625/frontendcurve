@@ -8,7 +8,6 @@ import { WithTheme } from '~/components/templates/WithTheme';
 
 const BarChart: NextPage = () => {
   useProtectRoute();
-
   return (
     <WithTheme>
       <MainTemplate>
