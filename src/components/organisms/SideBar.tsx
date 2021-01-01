@@ -94,7 +94,7 @@ export const SideBar: React.FC<Props> = ({
             <div className={classes.toolbar}>
               <Link href="/barChart">
                 <a className={classes.imageWrapper}>
-                  <LogoIcon width="24px" className={classes.logoIcon} />
+                  <LogoIcon width="22px" className={classes.logoIcon} />
                 </a>
               </Link>
             </div>
