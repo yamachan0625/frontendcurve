@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { setCookie } from 'nookies';
 import { TextField } from '@material-ui/core';
@@ -6,26 +6,28 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { DocumentNode } from 'graphql';
 
+import { LoginMutationFn, SignupMutationFn } from '~/types.d';
 import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/client';
 import useAuth from '~/contexts/auth';
 import { AuthButton } from '~/components/atoms/auth/AuthButton';
 import { useStyles } from './FormStyle';
 
 type Props = {
-  type: DocumentNode;
+  mutation: LoginMutationFn | SignupMutationFn; // 使用箇所にて型アサーションで定義
   dataKey: string;
   buttonText: string;
 };
 
-export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
+export const AuthForm: React.FC<Props> = ({
+  mutation,
+  dataKey,
+  buttonText,
+}) => {
   const classes = useStyles();
   const router = useRouter();
   const { setUserData, showAleartMessage } = useAuth();
   const { register, handleSubmit, errors } = useForm();
-  const [authFunc] = useMutation(type);
 
   const [isShowPassWord, setShowPassword] = React.useState(false);
 
@@ -34,7 +36,7 @@ export const AuthForm: React.FC<Props> = ({ type, dataKey, buttonText }) => {
     e
   ) => {
     try {
-      const { data } = await authFunc({
+      const { data } = await mutation({
         variables: { email, password },
       });
 

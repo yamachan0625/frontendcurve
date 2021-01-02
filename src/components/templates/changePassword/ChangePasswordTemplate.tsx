@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import { CHANGE_PASSWORD } from '~/queries/queries';
+import { useChangePasswordMutation } from '~/types.d';
 import useAuth, { useProtectRoute } from '~/contexts/auth';
 import { useSideBarSelect } from '~/contexts/sideBarSelect';
 
@@ -34,15 +34,14 @@ export const ChangePasswordTemplate: NextPage = () => {
   const { user, showAleartMessage } = useAuth();
   const { register, handleSubmit, errors } = useForm();
   const { callSetSelectedIndex } = useSideBarSelect();
-
-  const [chengePassword] = useMutation(CHANGE_PASSWORD);
+  const changePasswordMutation = useChangePasswordMutation();
 
   const onChangePassword = async (
     { currentPassword, newPassword, confirmNewPassword },
     e
   ) => {
     try {
-      const { data } = await chengePassword({
+      const { data } = await changePasswordMutation[0]({
         variables: { currentPassword, newPassword, confirmNewPassword },
       });
 

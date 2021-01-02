@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { DocumentNode } from 'graphql';
 
+import { LoginMutationFn, SignupMutationFn } from '~/types.d';
 import { useStyles } from './indexStyle';
 import { AuthForm } from '~/components/molecules/auth/Form';
 import { AuthButton } from '~/components/atoms/auth/AuthButton';
@@ -9,7 +9,7 @@ import { AuthButton } from '~/components/atoms/auth/AuthButton';
 import LogoIcon from '../../../svgs/logo.svg';
 
 type Props = {
-  type: DocumentNode;
+  mutation: LoginMutationFn | SignupMutationFn;
   dataKey: string;
   title: string;
   buttonText: string;
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const AuthWrapper: React.FC<Props> = ({
-  type,
+  mutation,
   dataKey,
   title,
   buttonText,
@@ -38,7 +38,7 @@ export const AuthWrapper: React.FC<Props> = ({
       <div className={`${classes.title}`} data-testid="auth-title">
         {title}
       </div>
-      <AuthForm type={type} dataKey={dataKey} buttonText={buttonText} />
+      <AuthForm mutation={mutation} dataKey={dataKey} buttonText={buttonText} />
       <div className={classes.sepalater}>{sepalateText}</div>
       <AuthButton
         color="default"
