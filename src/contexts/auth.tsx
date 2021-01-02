@@ -4,7 +4,7 @@ import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useAlert } from 'react-alert';
 
-import { CURRENT_USER } from '~/queries/queries';
+import { CurrentUserDocument } from '~/types.d';
 
 export type Auth = {
   refreshToken: string;
@@ -94,7 +94,7 @@ export const useProtectRoute = () => {
 
   const loadUser = async () => {
     const { data } = await client.query({
-      query: CURRENT_USER,
+      query: CurrentUserDocument,
       fetchPolicy: 'no-cache',
     });
     setUserData(data);

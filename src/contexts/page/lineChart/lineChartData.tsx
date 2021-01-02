@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { useLazyQuery } from '@apollo/client';
 
-import { GET_LINE_CHART_LIST } from '~/queries/queries';
+import { useGetLineChartListLazyQuery } from '~/types.d';
 
 const LineChartDataContext = createContext({
   getLineChartList: (options) => {},
@@ -26,9 +25,7 @@ const LineChartDataContext = createContext({
 });
 
 export const LineChartDatatProvider = ({ children }) => {
-  const [getLineChartList, { loading, data }] = useLazyQuery(
-    GET_LINE_CHART_LIST
-  );
+  const [getLineChartList, { loading, data }] = useGetLineChartListLazyQuery();
 
   return (
     <LineChartDataContext.Provider

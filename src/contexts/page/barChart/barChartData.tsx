@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { useLazyQuery } from '@apollo/client';
 
-import { GET_BAR_CHART_LIST } from '~/queries/queries';
+import { useGetBarChartListLazyQuery } from '~/types.d';
 
 export const BarChartDataContext = createContext({
   getBarChartList: ({
@@ -35,7 +34,7 @@ export const BarChartDatatProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [getBarChartList, { loading, data }] = useLazyQuery(GET_BAR_CHART_LIST);
+  const [getBarChartList, { loading, data }] = useGetBarChartListLazyQuery();
 
   return (
     <BarChartDataContext.Provider

@@ -1,0 +1,13 @@
+query getBarChartList($date: Date!, $sortOrder: String!) {
+  getBarChartList(date: $date, sortOrder: $sortOrder) {
+    scrapingDate
+    minDate
+    jobData {
+      siteName
+      skillName
+      jobVacancies
+      chartColor
+      chartBorderColor
+    }
+  }
+}

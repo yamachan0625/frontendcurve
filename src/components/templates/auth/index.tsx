@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from '@material-ui/core';
 
-import { LOGIN, SIGNUP } from '~/queries/queries';
 import { AuthWrapper } from '~/components/organisms/auth/index';
 import { useChangeSign } from '~/hooks/useChangeSign';
+import { useLoginMutation, useSignupMutation } from '~/types.d';
 
 const AuthTemplate: React.FC = () => {
   const { isLogin, changeSign } = useChangeSign();
+  const loginMutation = useLoginMutation();
+  const signupMutation = useSignupMutation();
 
   return (
     <>
       <Container maxWidth="xs">
         {isLogin ? (
           <AuthWrapper
-            type={LOGIN}
+            mutation={loginMutation[0]}
             dataKey="login"
             title="Login to your acount"
             buttonText="ログイン"
@@ -24,7 +26,7 @@ const AuthTemplate: React.FC = () => {
           </AuthWrapper>
         ) : (
           <AuthWrapper
-            type={SIGNUP}
+            mutation={signupMutation[0]}
             dataKey="signup"
             title="Sign Up"
             buttonText="アカウント登録"

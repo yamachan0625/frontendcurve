@@ -1,0 +1,13 @@
+query getLineChartList($dateRange: String!, $skills: [String]!) {
+  getLineChartList(dateRange: $dateRange, skills: $skills) {
+    rangeDate
+    jobData {
+      siteName
+      skillData {
+        label
+        data
+        borderColor
+      }
+    }
+  }
+}
