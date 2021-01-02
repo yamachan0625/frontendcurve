@@ -29,6 +29,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
+    "@graphql-codegen/cli": "^1.20.0",
+    "@graphql-codegen/typescript": "^1.20.0",
+    "@graphql-codegen/typescript-operations": "^1.17.13",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-backgrounds": "^5.3.19",
     "@storybook/addon-console": "^1.2.1",
@@ -84,7 +88,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cy:open": "cypress open",
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run",
+    "generate": "graphql-codegen"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
